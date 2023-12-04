@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     val lifecycle_version = "2.6.2"
     val room_version = "2.5.2"
     val nav_version = "2.7.4"

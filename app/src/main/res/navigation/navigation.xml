@@ -10,4 +10,29 @@
         android:name="be.ucll.tasklist.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/savings"
+        android:name="be.ucll.tasklist.Savingsaccounts__FragmentSavings"
+        android:label="savingsaccounts__fragment_savings"
+        tools:layout="@layout/savingsaccounts__fragment_savings" />
+    <fragment
+        android:id="@+id/cards"
+        android:name="be.ucll.tasklist.Checkingsaccounts__FragmentCards"
+        android:label="checkingsaccounts__fragment_cards"
+        tools:layout="@layout/checkingsaccounts__fragment_cards" />
+    <fragment
+        android:id="@+id/extra_legal"
+        android:name="be.ucll.tasklist.Extralegal__FragmentCheques"
+        android:label="extralegal__fragment_cheques"
+        tools:layout="@layout/extralegal__fragment_cheques" />
+    <fragment
+        android:id="@+id/investments"
+        android:name="be.ucll.tasklist.Investment__FragmentInvestment"
+        android:label="investment__fragment_investment"
+        tools:layout="@layout/investment__fragment_investment" />
+    <fragment
+        android:id="@+id/login__FragmentLogin"
+        android:name="be.ucll.tasklist.Login__FragmentLogin"
+        android:label="login___fragment_login"
+        tools:layout="@layout/login___fragment_login" />
 </navigation>
