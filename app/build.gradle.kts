@@ -52,6 +52,12 @@ dependencies {
 
     implementation("com.github.st235:expandablebottombar:1.5.3")
 
+    implementation("com.patrykandpatrick.vico:compose:1.12.0")
+    implementation("com.patrykandpatrick.vico:compose-m2:1.12.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.12.0")
+    implementation("com.patrykandpatrick.vico:core:1.12.0")
+    implementation("com.patrykandpatrick.vico:views:1.12.0")
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")

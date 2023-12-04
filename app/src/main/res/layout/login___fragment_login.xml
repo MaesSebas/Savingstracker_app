@@ -1,13 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Login__FragmentLogin">
+
+<data>
+    <variable
+        name="loginViewModel"
+        type="be.ucll.tasklist.Login__FragmentLoginViewModel" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login__FragmentLogin">
+    android:background="#000000">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <!-- entered digits visual representation -->
+    <View
+        android:id="@+id/representationCodeDigit1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/login__circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/representationCodeDigit2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/login__circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/representationCodeDigit3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/login__circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/representationCodeDigit4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/login__circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- numpad buttons -->
+    <Button
+        android:id="@+id/numpad_btn_number_1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="204dp"
+        android:text="1"
+        android:onClick="@{() -> loginViewModel.appendDigit(`1`)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="204dp"
+        android:text="2"
+        android:onClick="@{() -> loginViewModel.appendDigit(`2`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="204dp"
+        android:text="3"
+        android:onClick="@{() -> loginViewModel.appendDigit(`3`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="4"
+        android:onClick="@{() -> loginViewModel.appendDigit(`4`)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_1" />
+
+    <Button
+        android:id="@+id/numpad_btn_number_5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="5"
+        android:onClick="@{() -> loginViewModel.appendDigit(`5`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_4"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_2"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_6"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="6"
+        android:onClick="@{() -> loginViewModel.appendDigit(`6`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_5"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_3"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_7"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="7"
+        android:onClick="@{() -> loginViewModel.appendDigit(`7`)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_4" />
+
+    <Button
+        android:id="@+id/numpad_btn_number_8"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="8"
+        android:onClick="@{() -> loginViewModel.appendDigit(`8`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_7"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_5"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_number_9"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="9"
+        android:onClick="@{() -> loginViewModel.appendDigit(`9`)}"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_8"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_6"
+        android:backgroundTint="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/numpad_btn_clearCode"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="C"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_7" />
+
+    <Button
+        android:id="@+id/numpad_btn_login"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="OK"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_number_0"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_9" />
+
+    <Button
+        android:id="@+id/numpad_btn_number_0"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:onClick="@{() -> loginViewModel.appendDigit(`0`)}"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/numpad_btn_clearCode"
+        app:layout_constraintTop_toBottomOf="@+id/numpad_btn_number_8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,13 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout
+android:id="@+id/cardsFragment"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Checkingsaccounts__FragmentCards">
+
+<data>
+    <variable
+        name="cardsViewModel"
+        type="be.ucll.tasklist.Checkingsaccounts__FragmentCardsViewModel" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Checkingsaccounts__FragmentCards">
+    android:background="@color/black">
 
+    <!-- title -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/name_user_acount"
+        android:layout_width="179dp"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="Sebastiaan"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <!-- Balance -->
+    <TextView
+        android:id="@+id/total_balance_title"
+        android:layout_width="135dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:text="Total Balance"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/total_balance_cards"
+        android:layout_width="135dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="$1,000.00"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/total_balance_title"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance_title" />
+
+    <!-- graph -->
+    <com.patrykandpatrick.vico.views.chart.ChartView
+        android:id="@+id/card_chart_progression"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginRight="5dp"
+        app:chart="line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--
+    <Button
+        android:id="@+id/btn_1_month"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="348dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_2_month"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="348dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/btn_4_month"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_3_month"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="348dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/btn_2_month"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_4_month"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="348dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/btn_1_month"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btn_5_month"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="348dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/btn_3_month"
+        app:layout_constraintTop_toTopOf="parent" />
+        -->
+
+    <!-- bottom popup -->
+    <FrameLayout
+        android:id="@+id/move_up_popup"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/savings_Title"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="13dp"
+            android:text="Cards"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/toggle_move_up_popup"
+            android:layout_width="69dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/checkingsaccounts__dots" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/creditcard_viewPager"
+            android:layout_gravity="top"
+            android:layout_width="340dp"
+            android:layout_height="800dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="70dp"/>
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,13 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Extralegal__FragmentCheques">
+
+<data>
+    <variable
+        name="extralegalViewModel"
+        type="be.ucll.tasklist.Extralegal__FragmentChequesViewModel" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Extralegal__FragmentCheques">
+    android:background="@color/black">
 
+    <!-- title -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/name_user_acount"
+        android:layout_width="179dp"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="Sebastiaan"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <!-- bottom popup -->
+    <FrameLayout
+        android:id="@+id/move_up_popup"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/savings_Title"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="13dp"
+            android:text="Extra Legal"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/extralegal_viewPager"
+            android:layout_gravity="top"
+            android:layout_width="340dp"
+            android:layout_height="800dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="70dp"/>
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
