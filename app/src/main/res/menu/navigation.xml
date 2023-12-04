@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/cards"
+        android:title="Cards"
+        android:icon="@drawable/navigation__debit_card_icon"
+        app:exb_color="#808080" />
+
+    <item
+        android:id="@+id/savings"
+        android:title="Savings"
+        android:icon="@drawable/navigation__wallet_money_icon"
+        app:exb_color="#808080"
+        />
+
+    <item
+        android:id="@+id/investments"
+        android:title="Investments"
+        android:icon="@drawable/navigation__investment_icon"
+        app:exb_color="#808080"
+        />
+
+    <item
+        android:id="@+id/extra_legal"
+        android:title="Extra legal"
+        android:icon="@drawable/navigation__extra_legal_icon"
+        app:exb_color="#808080"
+        />
+</menu>
