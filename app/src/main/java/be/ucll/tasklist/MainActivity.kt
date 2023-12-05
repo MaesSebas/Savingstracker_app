@@ -24,17 +24,14 @@ class MainActivity : AppCompatActivity() {
          */
         ExpandableBottomBarNavigationUI.setupWithNavController(bottomNavigation, navigationController)
 
-        /*
         // hide navigationbar at login
         navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginFragment) {
+            if (destination.id == R.id.login__FragmentLogin) {
                 bottomNavigation.visibility = View.GONE
             } else {
                 bottomNavigation.visibility = View.VISIBLE
             }
         }
-
-         */
 
 
     }

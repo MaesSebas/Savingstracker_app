@@ -85,9 +85,9 @@ class Checkingsaccounts__FragmentCards : Fragment() {
         val screenHeight = resources.displayMetrics.heightPixels
         val startHeight = move_up_popup_layout.height
         val endHeight = if (isExpanded) {
-            (screenHeight * 0.35).toInt() // Change the default height
+            (screenHeight * 0.55).toInt() // Change the default height
         } else {
-            (screenHeight * 0.78).toInt() // Change to toggled height
+            (screenHeight * 0.92).toInt() // Change to toggled height
         }
 
         val animator = ValueAnimator.ofInt(startHeight, endHeight)

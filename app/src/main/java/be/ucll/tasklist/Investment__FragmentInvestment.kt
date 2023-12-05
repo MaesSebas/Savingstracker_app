@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import be.ucll.tasklist.databinding.InvestmentFragmentInvestmentBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.sebastiaan.savingstrackerapp.Investment__CardViewModelFactory
@@ -46,39 +47,39 @@ class Investment__FragmentInvestment : Fragment() {
             binding.cardChartProgression.setModel(chartEntryModel)
         }
 
-        /*
+
+
         binding.GoToStocksButton.setOnClickListener {
             val dataToPass = "stocks"
-            val action = Investment__InvestmentFragmentDirections
-                .actionInvestmentInvestmentFragmentToInvestmentOverviewPerAsset()
+            val action = Investment__FragmentInvestmentDirections
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToEtfsButton.setOnClickListener {
             val dataToPass = "etfs"
-            val action = Investment__InvestmentFragmentDirections
-                .actionInvestmentInvestmentFragmentToInvestmentOverviewPerAsset()
+            val action = Investment__FragmentInvestmentDirections
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToCryptoButton.setOnClickListener {
             val dataToPass = "crypto"
-            val action = Investment__InvestmentFragmentDirections
-                .actionInvestmentInvestmentFragmentToInvestmentOverviewPerAsset()
+            val action = Investment__FragmentInvestmentDirections
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToObligationsButton.setOnClickListener {
             val dataToPass = "obligations"
-            val action = Investment__InvestmentFragmentDirections
-                .actionInvestmentInvestmentFragmentToInvestmentOverviewPerAsset()
+            val action = Investment__FragmentInvestmentDirections
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
-         */
 
         return view
     }

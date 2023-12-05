@@ -80,7 +80,7 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
                 } else if (transaction.type == "Expense") {
                     -transaction.amount
                 } else {
-                    0.0 // Handle other types as needed
+                    0.0
                 }
                 acc + transactionAmount
             }
@@ -96,7 +96,7 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
         data ?: return emptyList()
 
         val transactionsByDay = data
-            .flatMap { it.transactions.orEmpty() } // Handle null transactions
+            .flatMap { it.transactions.orEmpty() }
 
         val grouped = transactionsByDay
             .groupBy { transaction ->
@@ -108,18 +108,4 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
 
         return grouped
     }
-
-    /*
-    private fun generateMockData() {
-        val customDataList = listOf(
-            Database__CustomData("Item 1", "Description 1",
-                Database__RecyclerViewData("Title 1", "Description 1")
-            ),
-            Database__CustomData("Item 2", "Description 2",
-                Database__RecyclerViewData("Title 2", "Description 2")
-            )
-        )
-        dataListLiveData.value = customDataList
-    }
-    */
 }

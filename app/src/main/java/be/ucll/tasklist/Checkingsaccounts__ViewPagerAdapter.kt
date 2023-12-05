@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
@@ -29,17 +30,14 @@ class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private 
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerviewWithData)
         val navigationInsertButton : Button = itemView.findViewById(R.id.button)
 
-        /*
         navigationInsertButton.setOnClickListener {
             val dataToPass = "obligations"
             //altijd android name gebruiken van navigation.xml + Directions
-            val action = CardsFragmentDirections
+            val action = Checkingsaccounts__FragmentCardsDirections
                 .actionCardsToOverallFragmentInsertTransaction()
             action.setSelectedData(dataToPass)
             Navigation.findNavController(itemView).navigate(action)
         }
-         */
-
 
         val customData = dataList[position]
         descriptionTextView.text = "Transaction"

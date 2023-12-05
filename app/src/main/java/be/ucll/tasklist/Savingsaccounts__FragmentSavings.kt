@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.SavingsaccountsFragmentSavingsBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
@@ -13,10 +14,10 @@ import com.sebastiaan.savingstrackerapp.Savingsaccounts__CardViewModelFactory
 
 class Savingsaccounts__FragmentSavings : Fragment() {
 
-    private var _binding: SavingsaccountsFragmentSavingsBinding? = null // Change to FragmentCardsBinding
+    private var _binding: SavingsaccountsFragmentSavingsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Savingsaccounts__FragmentSavingsViewModel // Change to the correct ViewModel class
+    private lateinit var viewModel: Savingsaccounts__FragmentSavingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,40 +48,14 @@ class Savingsaccounts__FragmentSavings : Fragment() {
             binding.savingsAccountsRecyclerview.adapter = recyclerViewAdapter
         }
 
-        /*
         binding.button2.setOnClickListener {
             val dataToPass = "obligations"
-            val action = savingsaccounts__savingsDirections
-                .actionSavingsToOverallFragmentAddNewCard()
+            val action = Savingsaccounts__FragmentSavingsDirections
+                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
-        */
 
         return view
     }
-
-    /*
-    companion object {
-        fun newInstance() = Savingsaccounts__FragmentSavings()
-    }
-
-    private lateinit var viewModel: Savingsaccounts__FragmentSavingsViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.savingsaccounts__fragment_savings, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel =
-            ViewModelProvider(this).get(Savingsaccounts__FragmentSavingsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-     */
-
 }

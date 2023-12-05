@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
 class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Database__AccountsAndTransactions>) : RecyclerView.Adapter<Savingsaccounts__RecyclerViewAdapter.ViewHolder>() {
@@ -25,16 +26,14 @@ class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Da
         holder.accountNumberTextView.text = transaction.account.accountNumber
         holder.balanceTextView.text = "€" + transaction.account.totalBalance
 
-        /*
         holder.itemView.setOnClickListener {
             val dataToPass = "test"
             //altijd android name gebruiken van navigation.xml + Directions
-            val action = savingsaccounts__savingsDirections
-                .actionSavingsToSavingsaccountFragmentSavingsDetails()
+            val action = Savingsaccounts__FragmentSavingsDirections
+                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
             action.setSelectedData(dataToPass)
             Navigation.findNavController(holder.itemView).navigate(action)
         }
-         */
     }
 
     override fun getItemCount(): Int {
