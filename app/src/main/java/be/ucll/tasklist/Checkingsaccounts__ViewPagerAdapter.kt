@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
-import be.ucll.tasklist.Database__C_AccountsAndTransactions
 import java.util.Objects
 
-class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private var dataList: List<Database__C_AccountsAndTransactions>) : PagerAdapter() {
+class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private var dataList: List<Database__AccountsAndTransactions>) : PagerAdapter() {
     override fun getCount(): Int {
         return dataList.size
     }

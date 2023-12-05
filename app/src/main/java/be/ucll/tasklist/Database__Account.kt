@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "account_table")
-data class Database__C_Account(
+data class Database__Account(
     @PrimaryKey(autoGenerate = true)
     val accountID: Long = 0L,
     val userID: Long,

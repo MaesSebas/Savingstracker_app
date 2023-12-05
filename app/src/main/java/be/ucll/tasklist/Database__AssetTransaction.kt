@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "investmenttransaction_table")
-data class Database__C_AssetTransaction(
+data class Database__AssetTransaction(
     @PrimaryKey(autoGenerate = true)
     val historyId: Long = 0L,
     val userID: Long,

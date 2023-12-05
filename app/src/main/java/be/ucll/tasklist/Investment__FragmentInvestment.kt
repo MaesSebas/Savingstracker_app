@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import be.ucll.tasklist.databinding.InvestmentFragmentInvestmentBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
-import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
 import com.sebastiaan.savingstrackerapp.Investment__CardViewModelFactory
 
 // fix error after crash io expeption -> ./gradlew clean assembleDebug
@@ -32,7 +30,7 @@ class Investment__FragmentInvestment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         //Database
-        val dao = TaskDatabase.getInstance(application).taskDao
+        val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         _binding = InvestmentFragmentInvestmentBinding.inflate(inflater, container, false)
         val view = binding.root

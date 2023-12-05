@@ -5,14 +5,14 @@ import java.util.Date
 import java.util.Locale
 
 class Overall_ConvertToGraphDataFormat {
-    fun generateGraphDataOutOfMockData(Data: List<Database__C_AccountsAndTransactions>, totalCardAmount: Double ): List<String>  {
+    fun generateGraphDataOutOfMockData(Data: List<Database__AccountsAndTransactions>, totalCardAmount: Double ): List<String>  {
         val groupedDataPerDay = groupTransactionsByDay(Data)
         val filteredTransactionsToLast30Days = filterTransactionsForLast30Days(groupedDataPerDay)
         val totalAmountDataPerDay = calculateTotalAmountPerDay(totalCardAmount, filteredTransactionsToLast30Days)
         return convertDataToGraphData(totalAmountDataPerDay)
     }
 
-    fun calculateTotalBalance(Data: List<Database__C_AccountsAndTransactions>): Double {
+    fun calculateTotalBalance(Data: List<Database__AccountsAndTransactions>): Double {
         Data?.let { list ->
             var currentTotalAmount = 0.0
             for (checkingsAccountData in list) {
@@ -27,7 +27,7 @@ class Overall_ConvertToGraphDataFormat {
         return totalAmountDataPerDay.map { it.second }
     }
 
-    fun filterTransactionsForLast30Days(data: List<Pair<String, List<Database__C_Transaction>>>): List<Pair<String, List<Database__C_Transaction>>> {
+    fun filterTransactionsForLast30Days(data: List<Pair<String, List<Database__Transaction>>>): List<Pair<String, List<Database__Transaction>>> {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = Date()
 
@@ -49,7 +49,7 @@ class Overall_ConvertToGraphDataFormat {
         return filteredData
     }
 
-    fun calculateTotalAmountPerDay(currentTotalAmount: Double, data: List<Pair<String, List<Database__C_Transaction>>>) : List<Pair<String, String>> {
+    fun calculateTotalAmountPerDay(currentTotalAmount: Double, data: List<Pair<String, List<Database__Transaction>>>) : List<Pair<String, String>> {
         var totalAmount = currentTotalAmount
         val result = mutableListOf<Pair<String, String>>()
 
@@ -72,7 +72,7 @@ class Overall_ConvertToGraphDataFormat {
         return result
     }
 
-    fun groupTransactionsByDay(data: List<Database__C_AccountsAndTransactions>?): List<Pair<String, List<Database__C_Transaction>>> {
+    fun groupTransactionsByDay(data: List<Database__AccountsAndTransactions>?): List<Pair<String, List<Database__Transaction>>> {
         data ?: return emptyList()
 
         val transactionsByDay = data

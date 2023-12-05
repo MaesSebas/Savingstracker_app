@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/tasksFragment">
+    app:startDestination="@id/cards">
 
-    <fragment
-        android:id="@+id/tasksFragment"
-        android:name="be.ucll.tasklist.TasksFragment"
-        android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
     <fragment
         android:id="@+id/savings"
         android:name="be.ucll.tasklist.Savingsaccounts__FragmentSavings"

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.SavingsaccountsFragmentSavingsBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
@@ -28,7 +27,7 @@ class Savingsaccounts__FragmentSavings : Fragment() {
         val view = binding.root
 
         val application = requireNotNull(this.activity).application
-        val dao = TaskDatabase.getInstance(application).taskDao
+        val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         val viewModelFactory = Savingsaccounts__CardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Savingsaccounts__FragmentSavingsViewModel::class.java)

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import java.util.Objects
 
-class Extralegal__ViewPagerAdapter(private val context: Context, private var dataList: List<Database__C_AccountsAndTransactions>) : PagerAdapter() {
+class Extralegal__ViewPagerAdapter(private val context: Context, private var dataList: List<Database__AccountsAndTransactions>) : PagerAdapter() {
     override fun getCount(): Int {
         return dataList.size
     }

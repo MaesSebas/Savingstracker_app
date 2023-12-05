@@ -8,10 +8,10 @@ import java.util.Random
 
 class Database__cards_mockdata {
 
-    fun generateMockCheckingsAccounts(): MutableList<Database__C_Account> {
-        val accountsMockData = mutableListOf<Database__C_Account>()
+    fun generateMockCheckingsAccounts(): MutableList<Database__Account> {
+        val accountsMockData = mutableListOf<Database__Account>()
 
-        val account1 = Database__C_Account(
+        val account1 = Database__Account(
             userID = 1,
             accountID = 1,
             accountName = "ING",
@@ -21,7 +21,7 @@ class Database__cards_mockdata {
         )
         accountsMockData.add(account1)
 
-        val account2 = Database__C_Account(
+        val account2 = Database__Account(
             userID = 1,
             accountID = 2,
             accountName = "KBC",
@@ -34,10 +34,10 @@ class Database__cards_mockdata {
         return accountsMockData
     }
 
-    fun generateMockSavingsAccounts(): MutableList<Database__C_Account> {
-        val accountsMockData = mutableListOf<Database__C_Account>()
+    fun generateMockSavingsAccounts(): MutableList<Database__Account> {
+        val accountsMockData = mutableListOf<Database__Account>()
 
-        val account1 = Database__C_Account(
+        val account1 = Database__Account(
             userID = 1,
             accountID = 3,
             accountName = "ING",
@@ -47,7 +47,7 @@ class Database__cards_mockdata {
         )
         accountsMockData.add(account1)
 
-        val account2 = Database__C_Account(
+        val account2 = Database__Account(
             userID = 1,
             accountID = 4,
             accountName = "KBC",
@@ -60,10 +60,10 @@ class Database__cards_mockdata {
         return accountsMockData
     }
 
-    fun generateMockAssetAccount(): MutableList<Database__C_Account> {
-        val accountsMockData = mutableListOf<Database__C_Account>()
+    fun generateMockAssetAccount(): MutableList<Database__Account> {
+        val accountsMockData = mutableListOf<Database__Account>()
 
-        val account1 = Database__C_Account(
+        val account1 = Database__Account(
             userID = 1,
             accountID = 7,
             accountName = "Degiro",
@@ -75,10 +75,10 @@ class Database__cards_mockdata {
         return accountsMockData
     }
 
-    fun generateMockExtraLegalAccounts(): MutableList<Database__C_Account> {
-        val accountsMockData = mutableListOf<Database__C_Account>()
+    fun generateMockExtraLegalAccounts(): MutableList<Database__Account> {
+        val accountsMockData = mutableListOf<Database__Account>()
 
-        val account1 = Database__C_Account(
+        val account1 = Database__Account(
             userID = 1,
             accountID = 5,
             accountName = "Edenred",
@@ -88,7 +88,7 @@ class Database__cards_mockdata {
         )
         accountsMockData.add(account1)
 
-        val account2 = Database__C_Account(
+        val account2 = Database__Account(
             userID = 1,
             accountID = 6,
             accountName = "Monizze",
@@ -101,8 +101,8 @@ class Database__cards_mockdata {
         return accountsMockData
     }
 
-    fun generateAssetMockDataAssetAccounts(): MutableList<Database__C_Asset> {
-        val mockDataList = mutableListOf<Database__C_Asset>()
+    fun generateAssetMockDataAssetAccounts(): MutableList<Database__Asset> {
+        val mockDataList = mutableListOf<Database__Asset>()
 
         val stockTickers = listOf("AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "FB", "V", "NVDA", "PYPL", "NFLX")
         mockDataList.addAll(generateMockDataForType("Stocks", 9, stockTickers))
@@ -119,13 +119,13 @@ class Database__cards_mockdata {
         return mockDataList
     }
 
-    private fun generateMockDataForType(type: String, count: Int, tickers: List<String>): List<Database__C_Asset> {
-        val dataList = mutableListOf<Database__C_Asset>()
+    private fun generateMockDataForType(type: String, count: Int, tickers: List<String>): List<Database__Asset> {
+        val dataList = mutableListOf<Database__Asset>()
         val random = Random()
 
         for (i in 1..count) {
             val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
-            val investment = Database__C_Asset(
+            val investment = Database__Asset(
                 userID = 1,
                 investmentId = random.nextLong(),
                 accountID = 7,
@@ -142,8 +142,8 @@ class Database__cards_mockdata {
         return dataList
     }
 
-    fun generateMockTransactionData(investments: List<Database__C_Asset>): List<Database__C_AssetTransaction> {
-        val mockData = mutableListOf<Database__C_AssetTransaction>()
+    fun generateMockTransactionData(investments: List<Database__Asset>): List<Database__AssetTransaction> {
+        val mockData = mutableListOf<Database__AssetTransaction>()
         val random = Random()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -162,7 +162,7 @@ class Database__cards_mockdata {
 
                 val valueBuy = random.nextDouble() * 999 + 1
 
-                val mockTransaction = Database__C_AssetTransaction(
+                val mockTransaction = Database__AssetTransaction(
                     investmentId = investment.investmentId,
                     transactionType = transactionType,
                     quantity = quantity,
@@ -179,8 +179,8 @@ class Database__cards_mockdata {
         return mockData
     }
 
-    fun generateTransactionsMockDataCheckingsAccounts(): MutableList<Database__C_Transaction> {
-        val transactions = mutableListOf<Database__C_Transaction>()
+    fun generateTransactionsMockDataCheckingsAccounts(): MutableList<Database__Transaction> {
+        val transactions = mutableListOf<Database__Transaction>()
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
         val random = Random()
@@ -228,7 +228,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 1,
                 companyName = companies[i],
@@ -247,7 +247,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 2,
                 companyName = companies[i],
@@ -264,8 +264,8 @@ class Database__cards_mockdata {
         return transactions
     }
 
-    fun generateTransactionsMockDataSavingsAccounts(): MutableList<Database__C_Transaction> {
-        val transactions = mutableListOf<Database__C_Transaction>()
+    fun generateTransactionsMockDataSavingsAccounts(): MutableList<Database__Transaction> {
+        val transactions = mutableListOf<Database__Transaction>()
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
         val random = Random()
@@ -313,7 +313,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 3,
                 companyName = companies[i],
@@ -332,7 +332,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 4,
                 companyName = companies[i],
@@ -349,8 +349,8 @@ class Database__cards_mockdata {
         return transactions
     }
 
-    fun generateTransactionsMockDataExtraLegalAccounts(): MutableList<Database__C_Transaction> {
-        val transactions = mutableListOf<Database__C_Transaction>()
+    fun generateTransactionsMockDataExtraLegalAccounts(): MutableList<Database__Transaction> {
+        val transactions = mutableListOf<Database__Transaction>()
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
         val random = Random()
@@ -398,7 +398,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 5,
                 companyName = companies[i],
@@ -417,7 +417,7 @@ class Database__cards_mockdata {
             val isDeposit = random.nextBoolean()
             val type = if (isDeposit) "Deposit" else "Expense"
 
-            val transaction = Database__C_Transaction(
+            val transaction = Database__Transaction(
                 userID = 1,
                 accountID = 6,
                 companyName = companies[i],

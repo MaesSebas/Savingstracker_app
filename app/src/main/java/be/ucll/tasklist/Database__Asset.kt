@@ -2,10 +2,9 @@ package be.ucll.tasklist
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "investment_database_table")
-data class Database__C_Asset(
+data class Database__Asset(
     @PrimaryKey(autoGenerate = true)
     val investmentId: Long = 0L,
     val userID: Long,

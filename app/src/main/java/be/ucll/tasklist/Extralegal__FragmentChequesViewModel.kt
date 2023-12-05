@@ -6,12 +6,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-class Extralegal__FragmentChequesViewModel(var dao: TaskDao) : ViewModel() {
-    var extraLegalCardsLiveData: MutableLiveData<List<Database__C_AccountsAndTransactions>> = MutableLiveData()
+class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewModel() {
+    var extraLegalCardsLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
     var totalCardAmount: MutableLiveData<Double> = MutableLiveData(0.0)
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
 

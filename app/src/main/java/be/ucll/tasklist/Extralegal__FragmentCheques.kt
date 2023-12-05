@@ -30,7 +30,7 @@ class Extralegal__FragmentCheques : Fragment() {
         val view = binding.root
 
         val application = requireNotNull(this.activity).application
-        val dao = TaskDatabase.getInstance(application).taskDao
+        val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         val viewModelFactory = Extralegal__CardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Extralegal__FragmentChequesViewModel::class.java)

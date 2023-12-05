@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
-class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Database__C_AccountsAndTransactions>) : RecyclerView.Adapter<Savingsaccounts__RecyclerViewAdapter.ViewHolder>() {
+class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Database__AccountsAndTransactions>) : RecyclerView.Adapter<Savingsaccounts__RecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.accountNameTextView)

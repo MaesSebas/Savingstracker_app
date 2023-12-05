@@ -38,7 +38,7 @@ class Checkingsaccounts__FragmentCards : Fragment() {
         val application = requireNotNull(this.activity).application
 
         //Database
-        val dao = TaskDatabase.getInstance(application).taskDao
+        val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         //ViewModel
         val viewModelFactory = Checkingsaccounts__CardViewModelFactory(dao)

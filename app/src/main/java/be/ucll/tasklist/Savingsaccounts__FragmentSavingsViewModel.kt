@@ -9,11 +9,10 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.Random
 
-class Savingsaccounts__FragmentSavingsViewModel(var dao: TaskDao) : ViewModel() {
+class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : ViewModel() {
     //var dataListLiveData: MutableLiveData<List<Database__CustomData>> = MutableLiveData()
-    var checkingsAccountLiveData: MutableLiveData<List<Database__C_AccountsAndTransactions>> = MutableLiveData()
+    var checkingsAccountLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
 
     init {
@@ -27,7 +26,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: TaskDao) : ViewModel() 
     }
 
 
-    fun generateGraphDataOutOfMockData(checkingsAccountData: List<Database__C_AccountsAndTransactions>) {
+    fun generateGraphDataOutOfMockData(checkingsAccountData: List<Database__AccountsAndTransactions>) {
         //val checkingsAccountData = checkingsAccountLiveData.value ?: return
         val currentTotalAmount = 1000.0 // You should replace this with the actual current total amount
         val groupedDataPerDay = groupTransactionsByDay(checkingsAccountData)
@@ -41,7 +40,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: TaskDao) : ViewModel() 
         return totalAmountDataPerDay.map { it.second }
     }
 
-    fun filterTransactionsForLast30Days(data: List<Pair<String, List<Database__C_Transaction>>>): List<Pair<String, List<Database__C_Transaction>>> {
+    fun filterTransactionsForLast30Days(data: List<Pair<String, List<Database__Transaction>>>): List<Pair<String, List<Database__Transaction>>> {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = Date()
 
@@ -63,7 +62,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: TaskDao) : ViewModel() 
         return filteredData
     }
 
-    fun calculateTotalAmountPerDay(currentTotalAmount: Double, data: List<Pair<String, List<Database__C_Transaction>>>) : List<Pair<String, String>> {
+    fun calculateTotalAmountPerDay(currentTotalAmount: Double, data: List<Pair<String, List<Database__Transaction>>>) : List<Pair<String, String>> {
         var totalAmount = currentTotalAmount
         val result = mutableListOf<Pair<String, String>>()
 
@@ -86,7 +85,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: TaskDao) : ViewModel() 
         return result
     }
 
-    fun groupTransactionsByDay(data: List<Database__C_AccountsAndTransactions>?): List<Pair<String, List<Database__C_Transaction>>> {
+    fun groupTransactionsByDay(data: List<Database__AccountsAndTransactions>?): List<Pair<String, List<Database__Transaction>>> {
         data ?: return emptyList()
 
         val transactionsByDay = data

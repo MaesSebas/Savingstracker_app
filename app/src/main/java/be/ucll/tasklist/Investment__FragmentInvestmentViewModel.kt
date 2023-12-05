@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-class Investment__FragmentInvestmentViewModel(var dao: TaskDao) : ViewModel() {
-    var investmentsLiveData: MutableLiveData<List<Database__C_AssetAndTransactions>> = MutableLiveData()
+class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : ViewModel() {
+    var investmentsLiveData: MutableLiveData<List<Database__AssetAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<Double>> = MutableLiveData()
 
 
@@ -24,7 +24,7 @@ class Investment__FragmentInvestmentViewModel(var dao: TaskDao) : ViewModel() {
         }
     }
 
-    fun generateGraphData(data: List<Database__C_AssetAndTransactions>): List<Double> {
+    fun generateGraphData(data: List<Database__AssetAndTransactions>): List<Double> {
         val filteredData = getAsset("All", data)
 
         val assets30DaysData = mutableListOf<List<Double>>()
@@ -48,12 +48,12 @@ class Investment__FragmentInvestmentViewModel(var dao: TaskDao) : ViewModel() {
         return totalList
     }
 
-    fun getAsset(filterType: String, assetData: List<Database__C_AssetAndTransactions>): List<Database__C_AssetAndTransactions> {
+    fun getAsset(filterType: String, assetData: List<Database__AssetAndTransactions>): List<Database__AssetAndTransactions> {
         //filterType not implementedYet
         return assetData
     }
 
-    fun calculateQuantityPerDay(data: Database__C_AssetAndTransactions): List<Int> {
+    fun calculateQuantityPerDay(data: Database__AssetAndTransactions): List<Int> {
         val currentDate = "2023-11-29" // Current date or the date you want to calculate quantities for
         val thirtyDaysAgo = LocalDate.parse(currentDate).minusDays(29).toString()
 
@@ -83,7 +83,7 @@ class Investment__FragmentInvestmentViewModel(var dao: TaskDao) : ViewModel() {
         return test
     }
 
-    fun calculateQuantityOnDate(investment: Database__C_AssetAndTransactions, date: String): Int {
+    fun calculateQuantityOnDate(investment: Database__AssetAndTransactions, date: String): Int {
         var quantityOnDate = investment.asset.quantity
 
         for (transaction in investment.transactions) {
