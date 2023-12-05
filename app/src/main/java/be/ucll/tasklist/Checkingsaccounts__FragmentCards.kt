@@ -15,9 +15,6 @@ import be.ucll.tasklist.databinding.CheckingsaccountsFragmentCardsBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
 
-
-data class MyData(val title: String, val description: String)
-
 class Checkingsaccounts__FragmentCards : Fragment() {
     private var _binding: CheckingsaccountsFragmentCardsBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +29,6 @@ class Checkingsaccounts__FragmentCards : Fragment() {
     // viewPager
     private lateinit var viewPager: ViewPager
     private lateinit var checkingsaccountsViewPagerAdapter: Checkingsaccounts__ViewPagerAdapter
-    private lateinit var dataList: List<MyData>
 
     override fun onCreateView(
         inflater: LayoutInflater,

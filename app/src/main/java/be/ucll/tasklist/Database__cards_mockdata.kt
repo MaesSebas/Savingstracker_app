@@ -168,6 +168,8 @@ class Database__cards_mockdata {
                     quantity = quantity,
                     transactionDate = dateSell.toString(),
                     value = valueBuy,
+                    accountID = 7,
+                    userID = 1
                 )
 
                 mockData.add(mockTransaction)

@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 data class Database__C_AssetTransaction(
     @PrimaryKey(autoGenerate = true)
     val historyId: Long = 0L,
+    val userID: Long,
+    val accountID: Long,
     val investmentId: Long,
     val transactionDate: String,
     val transactionType: String,

@@ -47,10 +47,13 @@ interface TaskDao {
     @Query("SELECT * FROM account_table WHERE accountType = :accountType")
     fun getAccountsWithTransactions(accountType: String): List<Database__C_AccountsAndTransactions>
 
-
     @Transaction
     @Query("SELECT * FROM account_table WHERE accountType = 'AssetAccount'")
     fun getAssetAccountWithTransaction(): List<Database__C_AssetAccountsAndAssets>
+
+    @Transaction
+    @Query("SELECT * FROM investment_database_table")
+    fun getAssetsWithTransactions(): List<Database__C_AssetAndTransactions>
 
 
     @Insert
