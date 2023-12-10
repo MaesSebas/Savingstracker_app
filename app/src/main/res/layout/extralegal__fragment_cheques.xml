@@ -32,7 +32,7 @@ tools:context=".Extralegal__FragmentCheques">
     <FrameLayout
         android:id="@+id/move_up_popup"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="710dp"
         android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

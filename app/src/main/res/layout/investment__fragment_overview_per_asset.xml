@@ -122,7 +122,7 @@ tools:context=".Investment__fragmentOverviewPerAsset">
     <FrameLayout
         android:id="@+id/move_up_popup"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="450dp"
         android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +155,7 @@ tools:context=".Investment__fragmentOverviewPerAsset">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewWithData"
             android:layout_width="325dp"
-            android:layout_height="220dp"
+            android:layout_height="400dp"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"

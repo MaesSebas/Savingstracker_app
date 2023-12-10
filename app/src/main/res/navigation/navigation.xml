@@ -10,6 +10,10 @@
         android:name="be.ucll.tasklist.Savingsaccounts__FragmentSavings"
         android:label="savingsaccounts__fragment_savings"
         tools:layout="@layout/savingsaccounts__fragment_savings" >
+        <argument
+            android:name="selectedData"
+            app:argType="string"
+            android:defaultValue="" />
         <action
             android:id="@+id/action_savings_to_savingsaccount__FragmentSavingsDetails2"
             app:destination="@id/savingsaccount__FragmentSavingsDetails" />
@@ -22,6 +26,10 @@
         android:name="be.ucll.tasklist.Checkingsaccounts__FragmentCards"
         android:label="checkingsaccounts__fragment_cards"
         tools:layout="@layout/checkingsaccounts__fragment_cards" >
+        <argument
+            android:name="selectedData"
+            app:argType="string"
+            android:defaultValue="" />
         <action
             android:id="@+id/action_cards_to_overall__FragmentInsertTransaction"
             app:destination="@id/overall__FragmentInsertTransaction" />
@@ -97,6 +105,12 @@
             android:name="selectedData"
             app:argType="string"
             android:defaultValue="" />
+        <action
+            android:id="@+id/action_overall__FragmentInsertTransaction_to_savings"
+            app:destination="@id/savings" />
+        <action
+            android:id="@+id/action_overall__FragmentInsertTransaction_to_cards"
+            app:destination="@id/cards" />
     </fragment>
     <fragment
         android:id="@+id/overall__FragmentAddNewCard"

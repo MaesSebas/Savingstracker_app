@@ -1,8 +1,11 @@
 package be.ucll.tasklist
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "transaction_table")
 data class Database__Transaction(
     @PrimaryKey(autoGenerate = true)
@@ -16,4 +19,4 @@ data class Database__Transaction(
     val category: String,
     val amount: Double,
     val type: String
-)
+): Parcelable

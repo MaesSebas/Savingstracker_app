@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
-class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Database__AccountsAndTransactions>) : RecyclerView.Adapter<Savingsaccounts__RecyclerViewAdapter.ViewHolder>() {
+class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Database__AssetAndTransactions>) : RecyclerView.Adapter<Investment__RecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.accountNameTextView)
@@ -22,6 +22,8 @@ class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Da
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaction = recyclerViewData[position]
+
+        /*
         holder.titleTextView.text = transaction.account.accountName
         holder.accountNumberTextView.text = transaction.account.accountNumber
         holder.balanceTextView.text = "€" + transaction.account.totalBalance
@@ -34,6 +36,7 @@ class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Da
             action.setSelectedData(dataToPassTest)
             Navigation.findNavController(holder.itemView).navigate(action)
         }
+         */
     }
 
     override fun getItemCount(): Int {

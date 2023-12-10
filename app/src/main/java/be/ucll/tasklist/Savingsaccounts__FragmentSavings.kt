@@ -48,6 +48,7 @@ class Savingsaccounts__FragmentSavings : Fragment() {
             binding.savingsAccountsRecyclerview.adapter = recyclerViewAdapter
         }
 
+        /*
         binding.button2.setOnClickListener {
             val dataToPass = "obligations"
             val action = Savingsaccounts__FragmentSavingsDirections
@@ -55,6 +56,7 @@ class Savingsaccounts__FragmentSavings : Fragment() {
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
+        */
 
         return view
     }

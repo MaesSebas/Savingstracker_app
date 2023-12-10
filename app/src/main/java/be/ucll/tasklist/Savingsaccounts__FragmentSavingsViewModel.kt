@@ -14,6 +14,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
     //var dataListLiveData: MutableLiveData<List<Database__CustomData>> = MutableLiveData()
     var checkingsAccountLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
+    val selectedData = MutableLiveData<Database__AccountsAndTransactions>()
 
     init {
         viewModelScope.launch {
@@ -23,6 +24,7 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
             checkingsAccountLiveData.postValue(assetData)
             generateGraphDataOutOfMockData(assetData)
         }
+        var test = selectedData
     }
 
 
