@@ -6,13 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.InvestmentFragmentOverviewPerAssetBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
-import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
-import com.sebastiaan.savingstrackerapp.Investment__CardViewModelFactory
 import com.sebastiaan.savingstrackerapp.Investment__DetailsCardViewModelFactory
 
 class Investment__fragmentOverviewPerAsset : Fragment() {
@@ -61,12 +58,11 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
             */
 
 
-            val dataToPass = Database__TestParcable("test", "test")
-
+            val dataToPass = DatabaseTestParcable("test", "test")
             val action = Investment__fragmentOverviewPerAssetDirections
-                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction()
-            action.setSelectedData(dataToPass)
+                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction(dataToPass)
             findNavController().navigate(action)
+
         }
 
         return view

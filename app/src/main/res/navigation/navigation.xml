@@ -77,8 +77,7 @@
         tools:layout="@layout/investment__fragment_insert_transaction">
         <argument
             android:name="selectedData"
-            app:argType="Database__TestParcable"
-            android:defaultValue="" />
+            app:argType="be.ucll.tasklist.DatabaseTestParcable" />
     </fragment>
     <fragment
         android:id="@+id/investment__fragmentOverviewPerAsset"

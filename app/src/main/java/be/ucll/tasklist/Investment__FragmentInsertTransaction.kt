@@ -10,91 +10,49 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.viewpager.widget.ViewPager
 import be.ucll.tasklist.databinding.CheckingsaccountsFragmentCardsBinding
+import be.ucll.tasklist.databinding.InvestmentFragmentInsertTransactionBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
+import com.sebastiaan.savingstrackerapp.Investment__InsertTransactionViewModelFactory
 
 class Investment__FragmentInsertTransaction : Fragment() {
 
-    private var _binding: CheckingsaccountsFragmentCardsBinding? = null
+    private var _binding: InvestmentFragmentInsertTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Checkingsaccounts__FragmentCardsViewModel
+    private lateinit var viewModel: Investment__FragmentInsertTransactionViewModel
 
-    // popup window variables
-    private lateinit var move_up_popup_layout: FrameLayout
-    private lateinit var toggle_move_up_popup_button: ImageButton
-    private var isExpanded = false
+    val data: DatabaseTestParcable? = arguments?.getParcelable<DatabaseTestParcable>("selectedData")
 
-    // viewPager
-    private lateinit var viewPager: ViewPager
-    private lateinit var checkingsaccountsViewPagerAdapter: Checkingsaccounts__ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val dataTest = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+
         val application = requireNotNull(this.activity).application
 
         //Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
+        val test = data
+
         //ViewModel
-        val viewModelFactory = Checkingsaccounts__CardViewModelFactory(dao)
+        val viewModelFactory = Investment__InsertTransactionViewModelFactory(dao)
         viewModel = ViewModelProvider(
             this,
             viewModelFactory
-        ).get(Checkingsaccounts__FragmentCardsViewModel::class.java)
+        ).get(Investment__FragmentInsertTransactionViewModel::class.java)
 
-        viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
-            val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())
-            binding.cardChartProgression.setModel(chartEntryModel)
-        }
-
-        viewModel.checkingsAccountLiveData.observe(viewLifecycleOwner) { newDataList ->
-            // Update the ViewPager adapter when the data changes
-            checkingsaccountsViewPagerAdapter =
-                Checkingsaccounts__ViewPagerAdapter(requireContext(), newDataList)
-            viewPager.adapter = checkingsaccountsViewPagerAdapter
-        }
 
         //Binding
-        _binding = CheckingsaccountsFragmentCardsBinding.inflate(inflater, container, false)
+        _binding = InvestmentFragmentInsertTransactionBinding.inflate(inflater, container, false)
         val view = binding.root
-        binding.cardsViewModel = viewModel
+        binding.insertInvestmentTransactionViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        viewModel.totalCardAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
-            val balanceTextView = binding.totalBalanceCards
-            balanceTextView.text = "€" + viewModel.totalCardAmount.value.toString()
-        }
-
-        //viewPager
-        viewPager = binding.creditcardViewPager
 
         return view
     }
-
-
-        /*
-        companion object {
-            fun newInstance() = Investment__FragmentInsertTransaction()
-        }
-
-        private lateinit var viewModel: Investment__FragmentInsertTransactionViewModel
-
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return inflater.inflate(R.layout.investment__fragment_insert_transaction, container, false)
-        }
-
-        override fun onActivityCreated(savedInstanceState: Bundle?) {
-            super.onActivityCreated(savedInstanceState)
-            viewModel =
-                ViewModelProvider(this).get(Investment__FragmentInsertTransactionViewModel::class.java)
-            // TODO: Use the ViewModel
-        }
-         */
 }
