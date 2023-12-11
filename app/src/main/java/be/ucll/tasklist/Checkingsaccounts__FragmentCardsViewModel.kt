@@ -18,7 +18,7 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
     init {
         viewModelScope.launch {
             val accountData = withContext(Dispatchers.IO) {
-                dao.getAccountsWithTransactions("SavingsAccount")
+                dao.getAccountsWithTransactions("CheckingsAccount")
             }
             checkingsAccountLiveData.postValue(accountData)
             generateGraphDataOutOfMockData(accountData)

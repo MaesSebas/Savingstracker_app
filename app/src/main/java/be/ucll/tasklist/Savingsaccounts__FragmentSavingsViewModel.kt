@@ -12,6 +12,7 @@ import java.util.Locale
 
 class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : ViewModel() {
     //var dataListLiveData: MutableLiveData<List<Database__CustomData>> = MutableLiveData()
+    var totalSavingsAmount: MutableLiveData<Double> = MutableLiveData(0.0)
     var checkingsAccountLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
     val selectedData = MutableLiveData<Database__AccountsAndTransactions>()
@@ -23,10 +24,20 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
             }
             checkingsAccountLiveData.postValue(assetData)
             generateGraphDataOutOfMockData(assetData)
+            calculateTotalBalance(assetData)
         }
         var test = selectedData
     }
 
+    fun calculateTotalBalance(Data: List<Database__AccountsAndTransactions>) {
+        Data?.let { list ->
+            var currentTotalAmount = 0.0
+            for (checkingsAccountData in list) {
+                currentTotalAmount += checkingsAccountData.account.totalBalance.toDouble()
+            }
+            totalSavingsAmount.postValue(currentTotalAmount)
+        }
+    }
 
     fun generateGraphDataOutOfMockData(checkingsAccountData: List<Database__AccountsAndTransactions>) {
         //val checkingsAccountData = checkingsAccountLiveData.value ?: return

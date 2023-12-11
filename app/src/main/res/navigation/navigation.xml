@@ -18,8 +18,8 @@
             android:id="@+id/action_savings_to_savingsaccount__FragmentSavingsDetails2"
             app:destination="@id/savingsaccount__FragmentSavingsDetails" />
         <action
-            android:id="@+id/action_savings_to_overall__FragmentInsertTransaction2"
-            app:destination="@id/overall__FragmentInsertTransaction" />
+            android:id="@+id/action_savings_to_overall__FragmentAddNewCard"
+            app:destination="@id/overall__FragmentAddNewCard" />
     </fragment>
     <fragment
         android:id="@+id/cards"
@@ -77,7 +77,7 @@
         tools:layout="@layout/investment__fragment_insert_transaction">
         <argument
             android:name="selectedData"
-            app:argType="string"
+            app:argType="Database__TestParcable"
             android:defaultValue="" />
     </fragment>
     <fragment
@@ -131,5 +131,8 @@
             android:name="selectedData"
             app:argType="string"
             android:defaultValue="" />
+        <action
+            android:id="@+id/action_savingsaccount__FragmentSavingsDetails_to_overall__FragmentInsertTransaction"
+            app:destination="@id/overall__FragmentInsertTransaction" />
     </fragment>
 </navigation>

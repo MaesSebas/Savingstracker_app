@@ -37,6 +37,15 @@ class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Databas
             Navigation.findNavController(holder.itemView).navigate(action)
         }
          */
+
+        holder.itemView.setOnClickListener {
+            val dataToPassTest =  "test"
+            //altijd android name gebruiken van navigation.xml + Directions
+            val action = Investment__fragmentOverviewPerAssetDirections
+                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentAssetDetails2()
+            action.setSelectedData(dataToPassTest)
+            Navigation.findNavController(holder.itemView).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {

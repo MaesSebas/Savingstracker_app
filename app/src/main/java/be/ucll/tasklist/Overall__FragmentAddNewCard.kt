@@ -6,26 +6,64 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import be.ucll.tasklist.databinding.OverallFragmentAddNewCardBinding
+import be.ucll.tasklist.databinding.OverallFragmentInsertTransactionBinding
+import com.sebastiaan.savingstrackerapp.Overall__CardViewModelFactory
+import com.sebastiaan.savingstrackerapp.Overall__InsertTransactionCardViewModelFactory
 
 class Overall__FragmentAddNewCard : Fragment() {
-
-    companion object {
-        fun newInstance() = Overall__FragmentAddNewCard()
-    }
+    private var _binding: OverallFragmentAddNewCardBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: Overall__FragmentAddNewCardViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.overall__fragment_add_new_card, container, false)
-    }
+        val application = requireNotNull(this.activity).application
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(Overall__FragmentAddNewCardViewModel::class.java)
-        // TODO: Use the ViewModel
+        //Database
+        val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
+
+        //ViewModel
+        val viewModelFactory = Overall__CardViewModelFactory(dao)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(Overall__FragmentAddNewCardViewModel::class.java)
+
+
+        viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { success ->
+            if (success) {
+                val dataToPass = "stocks"
+                val action = Overall__FragmentInsertTransactionDirections
+                    .actionOverallFragmentInsertTransactionToCards()
+                action.setSelectedData(dataToPass)
+                findNavController().navigate(action)
+                viewModel.resetInsertionSuccess()
+            }
+        })
+
+        //Binding
+        _binding = OverallFragmentAddNewCardBinding.inflate(inflater, container, false)
+        val view = binding.root
+        binding.insertCardViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        /*
+        binding.btnAddTransaction.setOnClickListener {
+            viewModel.insertCardTransaction(
+                binding.companyName.text.toString(),
+                binding.description.text.toString(),
+                binding.transactiondate.text.toString(),
+                binding.category.text.toString(),
+                binding.amount.text.toString().toDoubleOrNull() ?: 0.0,
+                "test")
+        }
+         */
+
+        return view
     }
 
 }

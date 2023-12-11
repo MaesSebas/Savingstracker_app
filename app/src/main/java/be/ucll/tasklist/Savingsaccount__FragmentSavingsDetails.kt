@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.SavingsaccountFragmentSavingsDetailsBinding
 import be.ucll.tasklist.databinding.SavingsaccountsFragmentSavingsBinding
@@ -49,15 +50,14 @@ class Savingsaccount__FragmentSavingsDetails : Fragment() {
             binding.savingsAccountsRecyclerview.adapter = recyclerViewAdapter
         }
 
-        /*
+
         binding.button2.setOnClickListener {
             val dataToPass = "obligations"
-            val action = Savingsaccounts__FragmentSavingsDirections
-                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
+            val action = Savingsaccount__FragmentSavingsDetailsDirections
+                .actionSavingsaccountFragmentSavingsDetailsToOverallFragmentInsertTransaction()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
-        */
 
         return view
     }

@@ -38,6 +38,11 @@ class Savingsaccounts__FragmentSavings : Fragment() {
 
         binding.savingsAccountsRecyclerview.layoutManager = LinearLayoutManager(context)
 
+        viewModel.totalSavingsAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
+            val balanceTextView = binding.balanceCard
+            balanceTextView.text = "€" + viewModel.totalSavingsAmount.value.toString()
+        }
+
         viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
             val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())
             binding.savingsChartProgression.setModel(chartEntryModel)
@@ -48,15 +53,13 @@ class Savingsaccounts__FragmentSavings : Fragment() {
             binding.savingsAccountsRecyclerview.adapter = recyclerViewAdapter
         }
 
-        /*
         binding.button2.setOnClickListener {
             val dataToPass = "obligations"
             val action = Savingsaccounts__FragmentSavingsDirections
-                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
+                .actionSavingsToOverallFragmentAddNewCard()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
-        */
 
         return view
     }

@@ -63,7 +63,7 @@ class Checkingsaccounts__FragmentCards : Fragment() {
 
         viewModel.totalCardAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
             val balanceTextView = binding.totalBalanceCards
-            balanceTextView.text = "€" + viewModel.totalCardAmount.toString()
+            balanceTextView.text = "€" + viewModel.totalCardAmount.value.toString()
         }
 
         //viewPager
@@ -85,7 +85,7 @@ class Checkingsaccounts__FragmentCards : Fragment() {
         val screenHeight = resources.displayMetrics.heightPixels
         val startHeight = move_up_popup_layout.height
         val endHeight = if (isExpanded) {
-            (screenHeight * 0.55).toInt() // Change the default height
+            (screenHeight * 0.49).toInt() // Change the default height
         } else {
             (screenHeight * 0.92).toInt() // Change to toggled height
         }

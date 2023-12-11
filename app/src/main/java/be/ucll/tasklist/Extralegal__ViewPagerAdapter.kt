@@ -42,7 +42,7 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
 
         val customData = dataList[position]
         descriptionTextView.text = "Transaction"
-        balanceTextView.text = "100000000€"
+        balanceTextView.text = customData.account.totalBalance
 
 
         val recyclerViewAdapter = Extralegal__RecyclerViewAdapter(customData.transactions)

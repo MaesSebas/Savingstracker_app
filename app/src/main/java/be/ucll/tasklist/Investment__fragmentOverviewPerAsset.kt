@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.InvestmentFragmentOverviewPerAssetBinding
@@ -50,15 +51,23 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
             binding.recyclerviewWithData.adapter = recyclerViewAdapter
         }
 
-        /*
         binding.button2.setOnClickListener {
+            /*
             val dataToPass = "obligations"
-            val action = savingsaccounts__savingsDirections
-                .actionSavingsToOverallFragmentAddNewCard()
+            val action = Investment__fragmentOverviewPerAssetDirections
+                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction()
+            action.setSelectedData(dataToPass)
+            findNavController().navigate(action)
+            */
+
+
+            val dataToPass = Database__TestParcable("test", "test")
+
+            val action = Investment__fragmentOverviewPerAssetDirections
+                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction()
             action.setSelectedData(dataToPass)
             findNavController().navigate(action)
         }
-         */
 
         return view
     }
