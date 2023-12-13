@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.ucll.tasklist.databinding.OverallFragmentAddNewCardBinding
 import be.ucll.tasklist.databinding.OverallFragmentInsertTransactionBinding
+import com.patrykandpatrick.vico.core.extension.getFieldValue
 import com.sebastiaan.savingstrackerapp.Overall__CardViewModelFactory
 import com.sebastiaan.savingstrackerapp.Overall__InsertTransactionCardViewModelFactory
 
@@ -29,6 +30,9 @@ class Overall__FragmentAddNewCard : Fragment() {
         //Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
+        //Arguments
+        val typeAccount = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+
         //ViewModel
         val viewModelFactory = Overall__CardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Overall__FragmentAddNewCardViewModel::class.java)
@@ -37,8 +41,8 @@ class Overall__FragmentAddNewCard : Fragment() {
         viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
                 val dataToPass = "stocks"
-                val action = Overall__FragmentInsertTransactionDirections
-                    .actionOverallFragmentInsertTransactionToCards()
+                val action = Overall__FragmentAddNewCardDirections
+                    .actionOverallFragmentAddNewCardToSavings()
                 action.setSelectedData(dataToPass)
                 findNavController().navigate(action)
                 viewModel.resetInsertionSuccess()
@@ -51,17 +55,18 @@ class Overall__FragmentAddNewCard : Fragment() {
         binding.insertCardViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        /*
+        val accountTypesArray = resources.getStringArray(R.array.account_types)
+        val selectedItemIndex = accountTypesArray.indexOf(typeAccount as String)
+        binding.spinnerTransactionType.setSelection(selectedItemIndex)
+
         binding.btnAddTransaction.setOnClickListener {
-            viewModel.insertCardTransaction(
-                binding.companyName.text.toString(),
-                binding.description.text.toString(),
-                binding.transactiondate.text.toString(),
-                binding.category.text.toString(),
-                binding.amount.text.toString().toDoubleOrNull() ?: 0.0,
-                "test")
+            viewModel.insertNewAccount(
+                binding.spinnerTransactionType.selectedItem.toString(),
+                binding.editTextAmount.text.toString(),
+                binding.editTextCategory.text.toString(),
+                binding.editAccountNumber.text.toString(),
+            )
         }
-         */
 
         return view
     }

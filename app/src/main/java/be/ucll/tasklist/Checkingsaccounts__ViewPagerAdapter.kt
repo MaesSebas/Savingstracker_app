@@ -31,10 +31,10 @@ class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private 
         val navigationInsertButton : Button = itemView.findViewById(R.id.button)
 
         navigationInsertButton.setOnClickListener {
-            val dataToPass = "obligations"
+            val dataToPass = dataList[position].account.accountID
             //altijd android name gebruiken van navigation.xml + Directions
             val action = Checkingsaccounts__FragmentCardsDirections
-                .actionCardsToOverallFragmentInsertTransaction()
+                .actionCardsToOverallFragmentInsertTransaction(dataToPass)
             action.setSelectedData(dataToPass)
             Navigation.findNavController(itemView).navigate(action)
         }

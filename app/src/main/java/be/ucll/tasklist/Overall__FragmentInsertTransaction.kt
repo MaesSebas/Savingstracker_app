@@ -34,6 +34,9 @@ class Overall__FragmentInsertTransaction : Fragment() {
         //Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
+        //Argmuments
+        val accountId = Overall__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+
         //ViewModel
         val viewModelFactory = Overall__InsertTransactionCardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Overall__FragmentInsertTransactionViewModel::class.java)
@@ -57,6 +60,7 @@ class Overall__FragmentInsertTransaction : Fragment() {
 
         binding.btnAddTransaction.setOnClickListener {
             viewModel.insertCardTransaction(
+                accountId,
                 binding.companyName.text.toString(),
                 binding.description.text.toString(),
                 binding.transactiondate.text.toString(),

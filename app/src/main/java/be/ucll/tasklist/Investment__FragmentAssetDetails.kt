@@ -8,12 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import be.ucll.tasklist.databinding.CheckingsaccountsFragmentCardsBinding
 import be.ucll.tasklist.databinding.InvestmentFragmentAssetDetailsBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
+import com.patrykandpatrick.vico.views.chart.ChartView
 import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
 import com.sebastiaan.savingstrackerapp.Investment__AssetDetailsViewModelFactory
+import java.lang.Math.round
 
 class Investment__FragmentAssetDetails : Fragment() {
 
@@ -33,48 +38,50 @@ class Investment__FragmentAssetDetails : Fragment() {
     ): View? {
         val application = requireNotNull(this.activity).application
 
-        //Database
+        // Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
-        //ViewModel
+        // ViewModel
         val viewModelFactory = Investment__AssetDetailsViewModelFactory(dao)
         viewModel = ViewModelProvider(
             this,
             viewModelFactory
         ).get(Investment__FragmentAssetDetailsViewModel::class.java)
 
-        /*
-        viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
-            val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())
-            binding.cardChartProgression.setModel(chartEntryModel)
-        }
+        // Arguments
+        val assetAndTransactions =
+            Investment__FragmentAssetDetailsArgs.fromBundle(requireArguments()).selectedData
+        viewModel.setTransactionsDataAndFungateAsInit(assetAndTransactions)
 
-        viewModel.checkingsAccountLiveData.observe(viewLifecycleOwner) { newDataList ->
-            // Update the ViewPager adapter when the data changes
-            checkingsaccountsViewPagerAdapter =
-                Checkingsaccounts__ViewPagerAdapter(requireContext(), newDataList)
-            viewPager.adapter = checkingsaccountsViewPagerAdapter
-        }
-         */
-
-        //Binding
+        // Binding
         _binding = InvestmentFragmentAssetDetailsBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.cardsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        /*
-        viewModel.totalCardAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
-            val balanceTextView = binding.totalBalanceCards
-            balanceTextView.text = "€" + viewModel.totalCardAmount.value.toString()
+        viewModel.transactionsLiveData.observe(viewLifecycleOwner) { newDataList ->
+            val recyclerViewAdapter =
+                Investment__AssetDetailRecyclerViewAdapter(newDataList.transactions)
+
+            val includedLayout =
+                view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
+            val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewWithData)
+            yourElement.adapter = recyclerViewAdapter
         }
-         */
 
-        //viewPager
-        //viewPager = binding.creditcardViewPager
+        viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
+            val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())
+            val includedLayout =
+                view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
+            val yourElement = includedLayout.findViewById<ChartView>(R.id.card_chart_progression)
+            yourElement.setModel(chartEntryModel)
+        }
 
+        viewModel.transactionsLiveData.observe(viewLifecycleOwner) { graphDataList ->
+            binding.nameAsset.text = graphDataList.asset.name
+            binding.totalBalanceCards2.text = "€" + round(graphDataList.asset.lastValue).toString()
+        }
 
         return view
-
     }
 }

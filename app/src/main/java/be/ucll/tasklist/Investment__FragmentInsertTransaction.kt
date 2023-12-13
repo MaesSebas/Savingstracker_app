@@ -22,22 +22,18 @@ class Investment__FragmentInsertTransaction : Fragment() {
 
     private lateinit var viewModel: Investment__FragmentInsertTransactionViewModel
 
-    val data: DatabaseTestParcable? = arguments?.getParcelable<DatabaseTestParcable>("selectedData")
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataTest = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+        //val dataTest = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
 
         val application = requireNotNull(this.activity).application
 
         //Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
-
-        val test = data
 
         //ViewModel
         val viewModelFactory = Investment__InsertTransactionViewModelFactory(dao)

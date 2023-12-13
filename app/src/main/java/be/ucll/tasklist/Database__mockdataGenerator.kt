@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.Random
 
-class Database__cards_mockdata {
+class Database__mockdataGenerator {
 
     fun generateMockCheckingsAccounts(): MutableList<Database__Account> {
         val accountsMockData = mutableListOf<Database__Account>()
@@ -105,21 +105,25 @@ class Database__cards_mockdata {
         val mockDataList = mutableListOf<Database__Asset>()
 
         val stockTickers = listOf("AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "FB", "V", "NVDA", "PYPL", "NFLX")
-        mockDataList.addAll(generateMockDataForType("Stocks", 9, stockTickers))
+        val stockFullNames = listOf("Apple Inc.", "Alphabet Inc. (Google)", "Microsoft Corporation", "Amazon.com Inc.", "Tesla Inc.", "Meta Platforms Inc. (Facebook)", "Visa Inc.", "NVIDIA Corporation", "PayPal Holdings Inc.", "Netflix Inc.")
+        mockDataList.addAll(generateMockDataForType("Stocks", 9, stockTickers, stockFullNames))
 
         val etfTickers = listOf("SPY", "QQQ", "VTI", "IWM", "EFA", "EEM", "GLD", "SLV", "VWO", "VNQ")
-        mockDataList.addAll(generateMockDataForType("ETFs", 9, etfTickers))
+        val etfFullNames = listOf("SPDR S&P 500 ETF Trust", "Invesco QQQ Trust", "Vanguard Total Stock Market ETF", "iShares Russell 2000 ETF", "iShares MSCI EAFE ETF", "iShares MSCI Emerging Markets ETF", "SPDR Gold Trust", "iShares Silver Trust", "Vanguard FTSE Emerging Markets ETF", "Vanguard Real Estate ETF")
+        mockDataList.addAll(generateMockDataForType("ETFs", 9, etfTickers, etfFullNames))
 
         val cryptoTickers = listOf("BTC", "ETH", "XRP", "LTC", "BCH", "ADA", "DOT", "LINK", "XLM", "DOGE")
-        mockDataList.addAll(generateMockDataForType("Cryptos", 9, cryptoTickers))
+        val cryptoFullNames = listOf("Bitcoin (BTC)", "Ethereum (ETH)", "Ripple (XRP)", "Litecoin (LTC)", "Bitcoin Cash (BCH)", "Cardano (ADA)", "Polkadot (DOT)", "Chainlink (LINK)", "Stellar (XLM)", "Dogecoin (DOGE)")
+        mockDataList.addAll(generateMockDataForType("Cryptos", 9, cryptoTickers, cryptoFullNames))
 
         val obligationTickers = listOf("GOVT", "AGG", "BND", "LQD", "HYG", "TLT", "IEF", "MUB", "MINT", "BOND")
-        mockDataList.addAll(generateMockDataForType("Obligations", 9, obligationTickers))
+        val obligationFullNames = listOf("iShares U.S. Treasury Bond ETF (GOVT)", "iShares Core U.S. Aggregate Bond ETF (AGG)", "Vanguard Total Bond Market ETF (BND)", "iShares iBoxx $ Investment Grade Corporate Bond ETF (LQD)", "iShares iBoxx $ High Yield Corporate Bond ETF (HYG)", "iShares 20+ Year Treasury Bond ETF (TLT)", "iShares 7-10 Year Treasury Bond ETF (IEF)", "iShares National Muni Bond ETF (MUB)", "PIMCO Enhanced Short Maturity Active ETF (MINT)", "PIMCO Total Return ETF (BOND)")
+        mockDataList.addAll(generateMockDataForType("Obligations", 9, obligationTickers, obligationFullNames))
 
         return mockDataList
     }
 
-    private fun generateMockDataForType(type: String, count: Int, tickers: List<String>): List<Database__Asset> {
+    private fun generateMockDataForType(type: String, count: Int, tickers: List<String>, fullname: List<String>): List<Database__Asset> {
         val dataList = mutableListOf<Database__Asset>()
         val random = Random()
 
@@ -130,7 +134,7 @@ class Database__cards_mockdata {
                 investmentId = random.nextLong(),
                 accountID = 7,
                 investmentType = type,
-                name = "$type",
+                name = fullname[i],
                 ticker = tickers[i],
                 quantity = (random.nextDouble() * (10.0 - 1.0) + 1.0).toInt(),
                 lastValue = random.nextDouble() * (1000.0 - 1.0) + 1.0,

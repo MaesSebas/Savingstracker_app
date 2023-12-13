@@ -6,44 +6,31 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.round
 
-class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Database__AssetAndTransactions>) : RecyclerView.Adapter<Investment__RecyclerViewAdapter.ViewHolder>() {
+class Investment__RecyclerViewAdapter(private val recyclerViewData: List<DatabaseAssetAndTransactions>) : RecyclerView.Adapter<Investment__RecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.accountNameTextView)
-        val balanceTextView: TextView = itemView.findViewById(R.id.balanceTextView)
-        val accountNumberTextView: TextView = itemView.findViewById(R.id.accountNumberTextView)
+        //val investmentLogoImageView: TextView = itemView.findViewById(R.id.investmentLogo)
+        val investmentNameTextView: TextView = itemView.findViewById(R.id.investmentName)
+        val investmentValueTextView: TextView = itemView.findViewById(R.id.investmentValue)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.savingssaccounts__savingsaccount_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.investments__investment_item, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaction = recyclerViewData[position]
-
-        /*
-        holder.titleTextView.text = transaction.account.accountName
-        holder.accountNumberTextView.text = transaction.account.accountNumber
-        holder.balanceTextView.text = "€" + transaction.account.totalBalance
+        holder.investmentNameTextView.text = transaction.asset.name
+        holder.investmentValueTextView.text = round(transaction.asset.lastValue).toString()
 
         holder.itemView.setOnClickListener {
-            val dataToPassTest =  transaction.account.accountID.toString()
-            //altijd android name gebruiken van navigation.xml + Directions
-            val action = Savingsaccounts__FragmentSavingsDirections
-                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
-            action.setSelectedData(dataToPassTest)
-            Navigation.findNavController(holder.itemView).navigate(action)
-        }
-         */
-
-        holder.itemView.setOnClickListener {
-            val dataToPassTest =  "test"
+            val dataToPassTest =  recyclerViewData[position]
             //altijd android name gebruiken van navigation.xml + Directions
             val action = Investment__fragmentOverviewPerAssetDirections
-                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentAssetDetails2()
-            action.setSelectedData(dataToPassTest)
+                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentAssetDetails2(dataToPassTest)
             Navigation.findNavController(holder.itemView).navigate(action)
         }
     }

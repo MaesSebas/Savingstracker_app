@@ -57,7 +57,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertAssetAccountMockData(databaseConnection: Database__TaskDao) {
-            val databasAssetAccountMockdataGeneratorClass = Database__cards_mockdata()
+            val databasAssetAccountMockdataGeneratorClass = Database__mockdataGenerator()
             val assetAccountMockData = databasAssetAccountMockdataGeneratorClass.generateMockAssetAccount()
             for(account in assetAccountMockData) {
                 databaseConnection.insert(account)
@@ -65,7 +65,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertCardAccountMockData(databaseConnection: Database__TaskDao) {
-            val databasAccountMockdataGeneratorClass = Database__cards_mockdata()
+            val databasAccountMockdataGeneratorClass = Database__mockdataGenerator()
             val accountMockData = databasAccountMockdataGeneratorClass.generateMockCheckingsAccounts()
             for(account in accountMockData) {
                 databaseConnection.insert(account)
@@ -73,7 +73,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertAssetsAndTransactionsMockData(databaseConnection: Database__TaskDao) {
-            val databaseAssetMockGeneratorClass = Database__cards_mockdata()
+            val databaseAssetMockGeneratorClass = Database__mockdataGenerator()
             val assetData = databaseAssetMockGeneratorClass.generateAssetMockDataAssetAccounts()
             for (asset in assetData) {
                 databaseConnection.insert(asset)
@@ -85,7 +85,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertCardTransactionMockData(databaseConnection: Database__TaskDao) {
-            val databaseTransactionMockGeneratorClass = Database__cards_mockdata()
+            val databaseTransactionMockGeneratorClass = Database__mockdataGenerator()
             val transactionData = databaseTransactionMockGeneratorClass.generateTransactionsMockDataCheckingsAccounts()
             for (transaction in transactionData) {
                 databaseConnection.insert(transaction)
@@ -93,7 +93,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertSavingsAccountMockData(databaseConnection: Database__TaskDao) {
-            val databaseSavingsAccountMockGeneratorClass = Database__cards_mockdata()
+            val databaseSavingsAccountMockGeneratorClass = Database__mockdataGenerator()
             val savingsAccoontData = databaseSavingsAccountMockGeneratorClass.generateMockSavingsAccounts()
             for (account in savingsAccoontData) {
                 databaseConnection.insert(account)
@@ -101,7 +101,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertSavingsTransactionMockData(databaseConnection: Database__TaskDao) {
-            val databaseSavingsTransactionMockGeneratorClass = Database__cards_mockdata()
+            val databaseSavingsTransactionMockGeneratorClass = Database__mockdataGenerator()
             val savingsTransactionData = databaseSavingsTransactionMockGeneratorClass.generateTransactionsMockDataSavingsAccounts()
             for (transaction in savingsTransactionData) {
                 databaseConnection.insert(transaction)
@@ -109,7 +109,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertExtraLegalAccountMockData(databaseConnection: Database__TaskDao) {
-            val databaseSavingsAccountMockGeneratorClass = Database__cards_mockdata()
+            val databaseSavingsAccountMockGeneratorClass = Database__mockdataGenerator()
             val savingsAccoontData = databaseSavingsAccountMockGeneratorClass.generateMockExtraLegalAccounts()
             for (account in savingsAccoontData) {
                 databaseConnection.insert(account)
@@ -117,7 +117,7 @@ abstract class Database__TaskDatabase : RoomDatabase() {
         }
 
         private suspend fun insertExtraLegalTransactionMockData(databaseConnection: Database__TaskDao) {
-            val databaseSavingsTransactionMockGeneratorClass = Database__cards_mockdata()
+            val databaseSavingsTransactionMockGeneratorClass = Database__mockdataGenerator()
             val savingsTransactionData = databaseSavingsTransactionMockGeneratorClass.generateTransactionsMockDataExtraLegalAccounts()
             for (transaction in savingsTransactionData) {
                 databaseConnection.insert(transaction)

@@ -9,22 +9,36 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : ViewModel() {
-    var investmentsLiveData: MutableLiveData<List<Database__AssetAndTransactions>> = MutableLiveData()
+    var investmentsLiveData: MutableLiveData<List<DatabaseAssetAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<Double>> = MutableLiveData()
-
-
+    var totalCardAmount: MutableLiveData<Double> = MutableLiveData(0.0)
+    var accountLiveData: MutableLiveData<List<Database__AssetAccountsAndAssets>> = MutableLiveData()
 
     init {
         viewModelScope.launch {
             val assetData = withContext(Dispatchers.IO) {
                 dao.getAssetsWithTransactions()
             }
+            val accountData = withContext(Dispatchers.IO) {
+                dao.getAssetAccountWithTransaction()
+            }
+            getTotalBalanceAccount(accountData[0])
+            accountLiveData.value = accountData
             investmentsLiveData.value = assetData
             graphLiveData.value = generateGraphData(assetData)
         }
     }
 
-    fun generateGraphData(data: List<Database__AssetAndTransactions>): List<Double> {
+    fun getInvestmentsDatPerType(allInvestments: MutableLiveData<List<DatabaseAssetAndTransactions>>, type: String): DatabaseParcableAssetAndTransactions {
+        val filteredList = allInvestments.value?.filter { it.asset.investmentType == type }
+        return DatabaseParcableAssetAndTransactions(filteredList!!)
+    }
+
+    fun getTotalBalanceAccount(accountData: Database__AssetAccountsAndAssets) {
+        totalCardAmount.value = accountData.account.totalBalance.toDouble()
+    }
+
+    fun generateGraphData(data: List<DatabaseAssetAndTransactions>): List<Double> {
         val filteredData = getAsset("All", data)
 
         val assets30DaysData = mutableListOf<List<Double>>()
@@ -48,12 +62,12 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         return totalList
     }
 
-    fun getAsset(filterType: String, assetData: List<Database__AssetAndTransactions>): List<Database__AssetAndTransactions> {
+    fun getAsset(filterType: String, assetData: List<DatabaseAssetAndTransactions>): List<DatabaseAssetAndTransactions> {
         //filterType not implementedYet
         return assetData
     }
 
-    fun calculateQuantityPerDay(data: Database__AssetAndTransactions): List<Int> {
+    fun calculateQuantityPerDay(data: DatabaseAssetAndTransactions): List<Int> {
         val currentDate = "2023-11-29" // Current date or the date you want to calculate quantities for
         val thirtyDaysAgo = LocalDate.parse(currentDate).minusDays(29).toString()
 
@@ -83,7 +97,7 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         return test
     }
 
-    fun calculateQuantityOnDate(investment: Database__AssetAndTransactions, date: String): Int {
+    fun calculateQuantityOnDate(investment: DatabaseAssetAndTransactions, date: String): Int {
         var quantityOnDate = investment.asset.quantity
 
         for (transaction in investment.transactions) {
@@ -96,7 +110,6 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         }
 
         return quantityOnDate
-
     }
 
     fun getDataPerDayFromAssetAPI(): List<Double> {

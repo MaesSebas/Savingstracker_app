@@ -33,6 +33,10 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
         val viewModelFactory = Investment__DetailsCardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Investment__FragmentOverviewPerAssetViewModel::class.java)
 
+        //argmuments
+        val assetsAndTransactions = Investment__fragmentOverviewPerAssetArgs.fromBundle(requireArguments()).selectedData.data
+        viewModel.setTransactionsDataAndFungateAsInit(assetsAndTransactions)
+
         binding.investmentsAssetsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -48,16 +52,12 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
             binding.recyclerviewWithData.adapter = recyclerViewAdapter
         }
 
+        viewModel.totalCardAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
+            val balanceTextView = binding.balanceCard
+            balanceTextView.text = "€" + viewModel.totalCardAmount.value.toString()
+        }
+
         binding.button2.setOnClickListener {
-            /*
-            val dataToPass = "obligations"
-            val action = Investment__fragmentOverviewPerAssetDirections
-                .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction()
-            action.setSelectedData(dataToPass)
-            findNavController().navigate(action)
-            */
-
-
             val dataToPass = DatabaseTestParcable("test", "test")
             val action = Investment__fragmentOverviewPerAssetDirections
                 .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction(dataToPass)
@@ -67,27 +67,4 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
 
         return view
     }
-
-    /*
-    companion object {
-        fun newInstance() = Investment__fragmentOverviewPerAsset()
-    }
-
-    private lateinit var viewModel: Investment__FragmentOverviewPerAssetViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.investment__fragment_overview_per_asset, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel =
-            ViewModelProvider(this).get(Investment__FragmentOverviewPerAssetViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-     */
-
 }

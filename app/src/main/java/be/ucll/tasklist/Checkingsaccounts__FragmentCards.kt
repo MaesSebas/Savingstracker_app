@@ -40,6 +40,9 @@ class Checkingsaccounts__FragmentCards : Fragment() {
         //Database
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
+        //argmuments
+        //val dataTest = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+
         //ViewModel
         val viewModelFactory = Checkingsaccounts__CardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Checkingsaccounts__FragmentCardsViewModel::class.java)

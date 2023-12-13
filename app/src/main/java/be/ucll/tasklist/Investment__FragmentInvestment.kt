@@ -47,37 +47,36 @@ class Investment__FragmentInvestment : Fragment() {
             binding.cardChartProgression.setModel(chartEntryModel)
         }
 
-
+        viewModel.totalCardAmount.observe(viewLifecycleOwner) { newTotalCardAmount ->
+            val balanceTextView = binding.balanceCard
+            balanceTextView.text = "€" + viewModel.totalCardAmount.value.toString()
+        }
 
         binding.GoToStocksButton.setOnClickListener {
-            val dataToPass = "stocks"
+            val dataToPass = viewModel.getInvestmentsDatPerType(viewModel.investmentsLiveData, "Stocks")
             val action = Investment__FragmentInvestmentDirections
-                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
-            action.setSelectedData(dataToPass)
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToEtfsButton.setOnClickListener {
-            val dataToPass = "etfs"
+            val dataToPass = viewModel.getInvestmentsDatPerType(viewModel.investmentsLiveData, "ETFs")
             val action = Investment__FragmentInvestmentDirections
-                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
-            action.setSelectedData(dataToPass)
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToCryptoButton.setOnClickListener {
-            val dataToPass = "crypto"
+            val dataToPass = viewModel.getInvestmentsDatPerType(viewModel.investmentsLiveData, "Cryptos")
             val action = Investment__FragmentInvestmentDirections
-                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
-            action.setSelectedData(dataToPass)
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2(dataToPass)
             findNavController().navigate(action)
         }
 
         binding.GoToObligationsButton.setOnClickListener {
-            val dataToPass = "obligations"
+            val dataToPass = viewModel.getInvestmentsDatPerType(viewModel.investmentsLiveData, "Obligations")
             val action = Investment__FragmentInvestmentDirections
-                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2()
-            action.setSelectedData(dataToPass)
+                .actionInvestmentsToInvestmentFragmentOverviewPerAsset2(dataToPass)
             findNavController().navigate(action)
         }
 

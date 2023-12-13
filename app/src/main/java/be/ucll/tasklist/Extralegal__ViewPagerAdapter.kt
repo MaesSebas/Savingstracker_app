@@ -33,10 +33,9 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
 
 
         navigationInsertButton.setOnClickListener {
-            val dataToPass = "obligations"
+            val dataToPass = dataList[position].account.accountID
             val action = Extralegal__FragmentChequesDirections
-                .actionExtraLegalToOverallFragmentInsertTransaction2()
-            action.setSelectedData(dataToPass)
+                .actionExtraLegalToOverallFragmentInsertTransaction2(dataToPass)
             Navigation.findNavController(itemView).navigate(action)
         }
 

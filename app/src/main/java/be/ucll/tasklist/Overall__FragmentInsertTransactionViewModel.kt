@@ -19,7 +19,7 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
     val insertionSuccess: LiveData<Boolean>
         get() = _insertionSuccess
 
-    fun insertCardTransaction(CompanyName: String, Description: String, TransactionDate: String, Category: String, Amount: Double, Type: String) {
+    fun insertCardTransaction(AccountId: Long, CompanyName: String, Description: String, TransactionDate: String, Category: String, Amount: Double, Type: String) {
 
         val random = Random()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -31,7 +31,7 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
 
         val transaction = Database__Transaction(
             userID = 1,
-            accountID = 3,
+            accountID = AccountId,
             companyName = CompanyName,
             description = Description,
             transactionDate = "2023-12-12",

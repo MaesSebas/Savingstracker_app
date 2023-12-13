@@ -18,7 +18,7 @@ tools:context=".Investment__FragmentAssetDetails">
 
     <!-- title -->
     <TextView
-        android:id="@+id/name_user_acount"
+        android:id="@+id/name_asset"
         android:layout_width="179dp"
         android:layout_height="55dp"
         android:gravity="center"
@@ -87,6 +87,7 @@ tools:context=".Investment__FragmentAssetDetails">
 
     <!-- bottom popup -->
 
+    <!--
     <TextView
         android:id="@+id/total_balance_cards"
         android:layout_width="135dp"
@@ -100,6 +101,7 @@ tools:context=".Investment__FragmentAssetDetails">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_cards2" />
+        -->
 
     <TextView
         android:id="@+id/total_balance_cards2"
@@ -113,7 +115,7 @@ tools:context=".Investment__FragmentAssetDetails">
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_user_acount" />
+        app:layout_constraintTop_toBottomOf="@+id/name_asset" />
 
     <FrameLayout
         android:id="@+id/move_up_popup"
@@ -126,12 +128,12 @@ tools:context=".Investment__FragmentAssetDetails">
         app:layout_constraintStart_toStartOf="parent">
 
         <include
-            android:id="@+id/include"
+            android:id="@+id/includedGraphInvestmentAssetDetails"
             layout="@layout/investment__fragment_slideview_asset_details"
             android:layout_width="325dp"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="40dp"
-            android:layout_height="420dp"/>
+            android:layout_height="420dp" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
