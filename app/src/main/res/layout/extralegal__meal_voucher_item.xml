@@ -41,7 +41,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewWithData"
             android:layout_width="330dp"
-            android:layout_height="286dp"
+            android:layout_height="320dp"
             android:layout_marginTop="240dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/include" />
@@ -51,7 +51,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="264dp"
-            android:layout_marginTop="470dp"
+            android:layout_marginTop="500dp"
             android:text="+"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

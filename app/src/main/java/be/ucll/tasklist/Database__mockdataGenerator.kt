@@ -105,19 +105,19 @@ class Database__mockdataGenerator {
         val mockDataList = mutableListOf<Database__Asset>()
 
         val stockTickers = listOf("AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "FB", "V", "NVDA", "PYPL", "NFLX")
-        val stockFullNames = listOf("Apple Inc.", "Alphabet Inc. (Google)", "Microsoft Corporation", "Amazon.com Inc.", "Tesla Inc.", "Meta Platforms Inc. (Facebook)", "Visa Inc.", "NVIDIA Corporation", "PayPal Holdings Inc.", "Netflix Inc.")
+        val stockFullNames = listOf("Apple", "Google", "Microsoft", "Amazon", "Tesla", "Meta", "Visa", "NVIDIA", "PayPal", "Netflix")
         mockDataList.addAll(generateMockDataForType("Stocks", 9, stockTickers, stockFullNames))
 
         val etfTickers = listOf("SPY", "QQQ", "VTI", "IWM", "EFA", "EEM", "GLD", "SLV", "VWO", "VNQ")
-        val etfFullNames = listOf("SPDR S&P 500 ETF Trust", "Invesco QQQ Trust", "Vanguard Total Stock Market ETF", "iShares Russell 2000 ETF", "iShares MSCI EAFE ETF", "iShares MSCI Emerging Markets ETF", "SPDR Gold Trust", "iShares Silver Trust", "Vanguard FTSE Emerging Markets ETF", "Vanguard Real Estate ETF")
+        val etfFullNames = listOf("S&P500", "Invesco", "Allworld", "Russell", "MSCI", "Emerging Markets", "Gold Trust", "Silver Trust", "Emerging Markets", "Real Estate")
         mockDataList.addAll(generateMockDataForType("ETFs", 9, etfTickers, etfFullNames))
 
         val cryptoTickers = listOf("BTC", "ETH", "XRP", "LTC", "BCH", "ADA", "DOT", "LINK", "XLM", "DOGE")
-        val cryptoFullNames = listOf("Bitcoin (BTC)", "Ethereum (ETH)", "Ripple (XRP)", "Litecoin (LTC)", "Bitcoin Cash (BCH)", "Cardano (ADA)", "Polkadot (DOT)", "Chainlink (LINK)", "Stellar (XLM)", "Dogecoin (DOGE)")
+        val cryptoFullNames = listOf("Bitcoin", "Ethereum", "Ripple", "Litecoin", "Bitcoin Cash", "Cardano", "Polkadot", "Chainlink", "Stellar", "Dogecoin")
         mockDataList.addAll(generateMockDataForType("Cryptos", 9, cryptoTickers, cryptoFullNames))
 
         val obligationTickers = listOf("GOVT", "AGG", "BND", "LQD", "HYG", "TLT", "IEF", "MUB", "MINT", "BOND")
-        val obligationFullNames = listOf("iShares U.S. Treasury Bond ETF (GOVT)", "iShares Core U.S. Aggregate Bond ETF (AGG)", "Vanguard Total Bond Market ETF (BND)", "iShares iBoxx $ Investment Grade Corporate Bond ETF (LQD)", "iShares iBoxx $ High Yield Corporate Bond ETF (HYG)", "iShares 20+ Year Treasury Bond ETF (TLT)", "iShares 7-10 Year Treasury Bond ETF (IEF)", "iShares National Muni Bond ETF (MUB)", "PIMCO Enhanced Short Maturity Active ETF (MINT)", "PIMCO Total Return ETF (BOND)")
+        val obligationFullNames = listOf("U.S. Treasury Bond", "Aggregate Bond", "Bond Market", "Corporate Bond", "High Yield ETF", "20+ Year Treasury Bond", "7-10 Year Treasury Bond", "National Muni Bond", "Maturity Active", "Total Return")
         mockDataList.addAll(generateMockDataForType("Obligations", 9, obligationTickers, obligationFullNames))
 
         return mockDataList

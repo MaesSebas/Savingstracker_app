@@ -24,7 +24,7 @@ class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Databas
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaction = recyclerViewData[position]
         holder.investmentNameTextView.text = transaction.asset.name
-        holder.investmentValueTextView.text = round(transaction.asset.lastValue).toString()
+        holder.investmentValueTextView.text = "€" + round(transaction.asset.lastValue).toString()
 
         holder.itemView.setOnClickListener {
             val dataToPassTest =  recyclerViewData[position]

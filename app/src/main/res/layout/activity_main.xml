@@ -20,7 +20,7 @@
     <github.com.st235.lib_expandablebottombar.ExpandableBottomBar
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         app:backgroundTint="#fff"
         app:exb_items="@menu/navigation"
         app:layout_constraintBottom_toBottomOf="parent"

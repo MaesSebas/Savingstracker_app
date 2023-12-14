@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.ucll.tasklist.databinding.InvestmentFragmentOverviewPerAssetBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
@@ -40,7 +41,9 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
         binding.investmentsAssetsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.recyclerviewWithData.layoutManager = LinearLayoutManager(context)
+        binding.recyclerviewWithData.layoutManager = GridLayoutManager(context, 2)
+
+        binding.savingsTitle.text = assetsAndTransactions[0].asset.investmentType
 
         viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
             val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())

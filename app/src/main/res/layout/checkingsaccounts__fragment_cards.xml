@@ -58,7 +58,7 @@ tools:context=".Checkingsaccounts__FragmentCards">
     <!-- graph -->
     <com.patrykandpatrick.vico.views.chart.ChartView
         android:id="@+id/card_chart_progression"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="136dp"
@@ -124,7 +124,7 @@ tools:context=".Checkingsaccounts__FragmentCards">
     <FrameLayout
         android:id="@+id/move_up_popup"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="345dp"
         android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
