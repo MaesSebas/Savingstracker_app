@@ -1,15 +1,18 @@
 package be.ucll.tasklist
 
+import android.animation.ValueAnimator
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import be.ucll.tasklist.databinding.CheckingsaccountsFragmentCardsBinding
@@ -30,6 +33,11 @@ class Investment__FragmentAssetDetails : Fragment() {
     // viewPager
     private lateinit var viewPager: ViewPager
     private lateinit var checkingsaccountsViewPagerAdapter: Checkingsaccounts__ViewPagerAdapter
+
+    // popup window variables
+    private lateinit var move_up_popup_layout: FrameLayout
+    private lateinit var toggle_move_up_popup_button: ImageButton
+    private var isExpanded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,13 +67,22 @@ class Investment__FragmentAssetDetails : Fragment() {
         binding.cardsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        //move up popup to top screen functionality
+        move_up_popup_layout = binding.moveUpPopup
+        toggle_move_up_popup_button = binding.toggleMoveUpPopup
+
+        toggle_move_up_popup_button.setOnClickListener {
+            toggleHeightMoveUpPopup()
+        }
+
         viewModel.transactionsLiveData.observe(viewLifecycleOwner) { newDataList ->
             val recyclerViewAdapter =
                 Investment__AssetDetailRecyclerViewAdapter(newDataList.transactions)
 
             val includedLayout =
                 view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
-            val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewWithData)
+            val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData)
+            yourElement.layoutManager = LinearLayoutManager(context)
             yourElement.adapter = recyclerViewAdapter
         }
 
@@ -83,5 +100,28 @@ class Investment__FragmentAssetDetails : Fragment() {
         }
 
         return view
+    }
+
+    private fun toggleHeightMoveUpPopup() {
+        val screenHeight = resources.displayMetrics.heightPixels
+        val startHeight = move_up_popup_layout.height
+        val endHeight = if (isExpanded) {
+            (screenHeight * 0.55).toInt() // Change the default height
+        } else {
+            (screenHeight * 0.92).toInt() // Change to toggled height
+        }
+
+        val animator = ValueAnimator.ofInt(startHeight, endHeight)
+        animator.interpolator = AccelerateDecelerateInterpolator()
+        animator.duration = 500 // Animation duration in milliseconds
+
+        animator.addUpdateListener { animation ->
+            val animatedValue = animation.animatedValue as Int
+            move_up_popup_layout.layoutParams.height = animatedValue
+            move_up_popup_layout.requestLayout()
+        }
+
+        animator.start()
+        isExpanded = !isExpanded
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.patrykandpatrick.vico.core.extension.getFieldValue
 import java.lang.Math.round
 
 class Investment__AssetDetailRecyclerViewAdapter(private val recyclerViewData: List<Database__AssetTransaction>) : RecyclerView.Adapter<Investment__AssetDetailRecyclerViewAdapter.ViewHolder>() {
@@ -25,7 +26,7 @@ class Investment__AssetDetailRecyclerViewAdapter(private val recyclerViewData: L
         val transaction = recyclerViewData[position]
         holder.transactionData.text = transaction.transactionDate
         holder.assetQuantity.text = transaction.quantity.toString()
-        holder.assetValue.text = round(transaction.value!!).toString()
+        holder.assetValue.text = "€" + round(transaction.value!!).toString()
     }
 
     override fun getItemCount(): Int {

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Math.round
 
 class Extralegal__RecyclerViewAdapter(private val recyclerViewData: List<Database__Transaction>) : RecyclerView.Adapter<Extralegal__RecyclerViewAdapter.ViewHolder>() {
 
@@ -24,7 +25,7 @@ class Extralegal__RecyclerViewAdapter(private val recyclerViewData: List<Databas
         val transaction = recyclerViewData[position]
         holder.titleTextView.text = transaction.companyName
         holder.descriptionTextView.text = transaction.description
-        holder.priceTextView.text = "€" + transaction.amount.toString()
+        holder.priceTextView.text = "€" + round(transaction.amount).toString()
         holder.dateTextView.text = transaction.transactionDate.toString()
     }
 

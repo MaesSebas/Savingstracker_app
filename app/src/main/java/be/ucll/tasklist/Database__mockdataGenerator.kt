@@ -162,7 +162,7 @@ class Database__mockdataGenerator {
                 calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30) + 1) // Add 1 to 30 days
                 dateFormat.format(calendar.time)
 
-                val dateSell = dateFormat
+                val dateSell = dateFormat.format(calendar.time)
 
                 val valueBuy = random.nextDouble() * 999 + 1
 
@@ -170,7 +170,7 @@ class Database__mockdataGenerator {
                     investmentId = investment.investmentId,
                     transactionType = transactionType,
                     quantity = quantity,
-                    transactionDate = dateSell.toString(),
+                    transactionDate = dateSell,
                     value = valueBuy,
                     accountID = 7,
                     userID = 1

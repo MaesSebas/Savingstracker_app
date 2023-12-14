@@ -127,13 +127,23 @@ tools:context=".Investment__FragmentAssetDetails">
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
+        <ImageButton
+            android:id="@+id/toggle_move_up_popup"
+            android:layout_width="69dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/checkingsaccounts__dots" />
+
         <include
             android:id="@+id/includedGraphInvestmentAssetDetails"
             layout="@layout/investment__fragment_slideview_asset_details"
-            android:layout_width="325dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="40dp"
-            android:layout_height="420dp" />
+            android:layout_width="340dp"
+            android:layout_height="800dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

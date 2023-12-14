@@ -142,16 +142,6 @@ tools:context=".Investment__fragmentOverviewPerAsset">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/toggle_move_up_popup"
-            android:layout_width="69dp"
-            android:layout_height="45dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/checkingsaccounts__dots" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewWithData"
             app:layoutManager="GridLayoutManager"
