@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class DatabaseTestParcable(
-    val testOne: String,
-    val testTwo: String
+data class DatabaseParcableAccountAndTransactions(
+    val data: Database__AccountsAndTransactions
 ): Parcelable

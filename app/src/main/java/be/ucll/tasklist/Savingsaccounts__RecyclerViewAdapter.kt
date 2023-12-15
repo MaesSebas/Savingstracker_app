@@ -27,16 +27,14 @@ class Savingsaccounts__RecyclerViewAdapter(private val recyclerViewData: List<Da
         holder.balanceTextView.text = "€" + transaction.account.totalBalance
 
         holder.itemView.setOnClickListener {
-            val dataToPassTest =  transaction.account.accountID.toString()
-            //altijd android name gebruiken van navigation.xml + Directions
+            val dataToPassTest =  DatabaseParcableAccountAndTransactions(transaction)
             val action = Savingsaccounts__FragmentSavingsDirections
-                .actionSavingsToSavingsaccountFragmentSavingsDetails2()
-            action.setSelectedData(dataToPassTest)
+                .actionSavingsToSavingsaccountFragmentSavingsDetails2(dataToPassTest)
             Navigation.findNavController(holder.itemView).navigate(action)
         }
     }
 
     override fun getItemCount(): Int {
-        return recyclerViewData.size // Assuming only one item in the RecyclerView
+        return recyclerViewData.size
     }
 }

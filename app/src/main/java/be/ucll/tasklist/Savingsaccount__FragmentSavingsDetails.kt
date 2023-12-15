@@ -17,6 +17,7 @@ import be.ucll.tasklist.databinding.SavingsaccountsFragmentSavingsBinding
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.sebastiaan.savingstrackerapp.Savings__DetailsCardViewModelFactory
 import com.sebastiaan.savingstrackerapp.Savingsaccounts__CardViewModelFactory
+import java.lang.Math.round
 
 class Savingsaccount__FragmentSavingsDetails : Fragment() {
 
@@ -44,10 +45,18 @@ class Savingsaccount__FragmentSavingsDetails : Fragment() {
         val viewModelFactory = Savings__DetailsCardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Savingsaccount__FragmentSavingsDetailsViewModel::class.java)
 
+        //argmuments
+        val dataTest = Savingsaccount__FragmentSavingsDetailsArgs.fromBundle(requireArguments()).selectedData
+        viewModel.setTransactionsDataAndFungateAsInit(dataTest.data)
+
         binding.savingsDetailsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.savingsAccountsRecyclerview.layoutManager = LinearLayoutManager(context)
+
+        viewModel.totalAmount.observe(viewLifecycleOwner) { graphDataList ->
+            binding.balanceCard.text = "€" + round(graphDataList).toString()
+        }
 
         viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
             val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())

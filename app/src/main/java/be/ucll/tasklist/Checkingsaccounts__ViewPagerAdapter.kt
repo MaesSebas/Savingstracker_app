@@ -23,6 +23,23 @@ class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        if(dataList[position].account.accountName == "AddCardFAKE") {
+            val itemView: View = inflater.inflate(R.layout.overall__add_new_card_item, container, false)
+
+            val includedLayout: View = itemView.findViewById(R.id.include)
+            includedLayout.setOnClickListener {
+                val dataToPassTest =  1L
+                //altijd android name gebruiken van navigation.xml + Directions
+                val action = Checkingsaccounts__FragmentCardsDirections
+                    .actionCardsToOverallFragmentInsertTransaction(dataToPassTest)
+                Navigation.findNavController(itemView).navigate(action)
+            }
+
+            Objects.requireNonNull(container).addView(itemView)
+            return itemView
+        }
+
         val itemView: View = inflater.inflate(R.layout.checkingsaccounts_credit_card_item, container, false)
 
         val descriptionTextView: TextView = itemView.findViewById(R.id.transactions_title)

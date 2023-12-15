@@ -17,12 +17,27 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
 
     init {
         viewModelScope.launch {
-            val accountData = withContext(Dispatchers.IO) {
+            var accountData = withContext(Dispatchers.IO) {
                 dao.getAccountsWithTransactions("CheckingsAccount")
             }
+            accountData += addFakeCardToGivePossibilityToAddNewCard()
             checkingsAccountLiveData.postValue(accountData)
             generateGraphDataOutOfMockData(accountData)
         }
+    }
+
+    fun addFakeCardToGivePossibilityToAddNewCard():  Database__AccountsAndTransactions{
+        return Database__AccountsAndTransactions(
+            account = Database__Account(
+                userID = 1,
+                accountID = 99,
+                accountName = "AddCardFAKE",
+                accountNumber = "9999999999",
+                totalBalance = "0",
+                accountType = "CheckingsAccount"
+            ),
+            transactions = listOf<Database__Transaction>()
+        )
     }
 
     fun generateGraphDataOutOfMockData(Data: List<Database__AccountsAndTransactions>) {

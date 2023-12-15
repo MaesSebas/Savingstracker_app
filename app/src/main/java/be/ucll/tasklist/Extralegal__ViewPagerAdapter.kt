@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
+import java.lang.Math.round
 import java.util.Objects
 
 class Extralegal__ViewPagerAdapter(private val context: Context, private var dataList: List<Database__AccountsAndTransactions>) : PagerAdapter() {
@@ -23,7 +24,26 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val itemView: View = inflater.inflate(R.layout.extralegal__meal_voucher_item, container, false)
+
+        var itemView: View = inflater.inflate(R.layout.extralegal__meal_voucher_item, container, false)
+        if(dataList[position].account.accountName == "Monizze") {
+            itemView = inflater.inflate(R.layout.extralegal__eco_voucher_item, container, false)
+        }
+        if(dataList[position].account.accountName == "AddCardFAKE") {
+            val itemView: View = inflater.inflate(R.layout.overall__add_new_card_item, container, false)
+
+            val includedLayout: View = itemView.findViewById(R.id.include)
+            includedLayout.setOnClickListener {
+                val dataToPassTest =  1L
+                //altijd android name gebruiken van navigation.xml + Directions
+                val action = Extralegal__FragmentChequesDirections
+                    .actionExtraLegalToOverallFragmentInsertTransaction2(dataToPassTest)
+                Navigation.findNavController(itemView).navigate(action)
+            }
+
+            Objects.requireNonNull(container).addView(itemView)
+            return itemView
+        }
 
         //val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.transactions_title)
@@ -41,7 +61,7 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
 
         val customData = dataList[position]
         descriptionTextView.text = "Transaction"
-        balanceTextView.text = customData.account.totalBalance
+        balanceTextView.text = "€" + customData.account.totalBalance
 
 
         val recyclerViewAdapter = Extralegal__RecyclerViewAdapter(customData.transactions)

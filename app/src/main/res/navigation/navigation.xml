@@ -76,7 +76,7 @@
         tools:layout="@layout/investment__fragment_insert_transaction">
         <argument
             android:name="selectedData"
-            app:argType="be.ucll.tasklist.DatabaseTestParcable" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/investment__fragmentOverviewPerAsset"
@@ -115,8 +115,7 @@
         tools:layout="@layout/overall__fragment_add_new_card" >
         <argument
             android:name="selectedData"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string" />
         <action
             android:id="@+id/action_overall__FragmentAddNewCard_to_savings"
             app:destination="@id/savings" />
@@ -128,8 +127,7 @@
         tools:layout="@layout/savingsaccount___fragment_savings_details" >
         <argument
             android:name="selectedData"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="be.ucll.tasklist.DatabaseParcableAccountAndTransactions" />
         <action
             android:id="@+id/action_savingsaccount__FragmentSavingsDetails_to_overall__FragmentInsertTransaction"
             app:destination="@id/overall__FragmentInsertTransaction" />

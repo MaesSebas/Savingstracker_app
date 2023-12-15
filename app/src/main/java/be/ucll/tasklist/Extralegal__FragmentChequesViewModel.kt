@@ -14,14 +14,29 @@ class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewMod
 
     init {
         viewModelScope.launch {
-            val accountData = withContext(Dispatchers.IO) {
+            var accountData = withContext(Dispatchers.IO) {
                 dao.getAccountsWithTransactions("ExtraLegalAccount")
             }
+            accountData += addFakeCardToGivePossibilityToAddNewCard()
             extraLegalCardsLiveData.postValue(accountData)
             val graphDataFromatter = Overall_ConvertToGraphDataFormat()
             val totalAmount = graphDataFromatter.calculateTotalBalance(accountData)
             totalCardAmount.value = totalAmount
             graphLiveData.value = graphDataFromatter.generateGraphDataOutOfMockData(accountData, totalAmount)
         }
+    }
+
+    fun addFakeCardToGivePossibilityToAddNewCard():  Database__AccountsAndTransactions{
+        return Database__AccountsAndTransactions(
+            account = Database__Account(
+                userID = 1,
+                accountID = 99,
+                accountName = "AddCardFAKE",
+                accountNumber = "9999999999",
+                totalBalance = "0",
+                accountType = "CheckingsAccount"
+            ),
+            transactions = listOf<Database__Transaction>()
+        )
     }
 }

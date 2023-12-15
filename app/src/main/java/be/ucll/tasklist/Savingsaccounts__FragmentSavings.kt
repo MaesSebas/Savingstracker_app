@@ -58,10 +58,9 @@ class Savingsaccounts__FragmentSavings : Fragment() {
         }
 
         binding.button2.setOnClickListener {
-            val dataToPass = "savingsAccount"
+            val dataToPass = "test"
             val action = Savingsaccounts__FragmentSavingsDirections
-                .actionSavingsToOverallFragmentAddNewCard()
-            action.setSelectedData(dataToPass)
+                .actionSavingsToOverallFragmentAddNewCard("SavingsAccount")
             findNavController().navigate(action)
         }
 

@@ -13,19 +13,13 @@ import java.util.Locale
 class Savingsaccount__FragmentSavingsDetailsViewModel(var dao: Database__TaskDao) : ViewModel() {
     var checkingsTransactionsLiveData: MutableLiveData<List<Database__Transaction>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
-    val selectedData = MutableLiveData<Database__AccountsAndTransactions>()
+    val totalAmount: MutableLiveData<Double> = MutableLiveData()
 
-    init {
-        viewModelScope.launch {
-            val assetData = withContext(Dispatchers.IO) {
-                dao.getTransactionsFromAccountById(1)
-            }
-            checkingsTransactionsLiveData.postValue(assetData)
-            generateGraphDataOutOfMockData(assetData)
-        }
-        var test = selectedData
+    fun setTransactionsDataAndFungateAsInit(data: Database__AccountsAndTransactions) {
+        totalAmount.value = data.account.totalBalance.toDouble()
+        checkingsTransactionsLiveData.postValue(data.transactions)
+        generateGraphDataOutOfMockData(data.transactions)
     }
-
 
     fun generateGraphDataOutOfMockData(checkingsAccountData: List<Database__Transaction>) {
         //val checkingsAccountData = checkingsAccountLiveData.value ?: return

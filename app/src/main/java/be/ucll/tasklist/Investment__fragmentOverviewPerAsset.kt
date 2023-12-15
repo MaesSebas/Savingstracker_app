@@ -61,7 +61,7 @@ class Investment__fragmentOverviewPerAsset : Fragment() {
         }
 
         binding.button2.setOnClickListener {
-            val dataToPass = DatabaseTestParcable("test", "test")
+            val dataToPass = "test"
             val action = Investment__fragmentOverviewPerAssetDirections
                 .actionInvestmentFragmentOverviewPerAssetToInvestmentFragmentInsertTransaction(dataToPass)
             findNavController().navigate(action)

@@ -15,7 +15,6 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
     var totalSavingsAmount: MutableLiveData<Double> = MutableLiveData(0.0)
     var checkingsAccountLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<String>> = MutableLiveData()
-    val selectedData = MutableLiveData<Database__AccountsAndTransactions>()
 
     init {
         viewModelScope.launch {
@@ -26,7 +25,6 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
             generateGraphDataOutOfMockData(assetData)
             calculateTotalBalance(assetData)
         }
-        var test = selectedData
     }
 
     fun calculateTotalBalance(Data: List<Database__AccountsAndTransactions>) {
