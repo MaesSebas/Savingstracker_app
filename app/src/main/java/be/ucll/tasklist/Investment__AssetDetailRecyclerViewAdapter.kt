@@ -10,7 +10,6 @@ import com.patrykandpatrick.vico.core.extension.getFieldValue
 import java.lang.Math.round
 
 class Investment__AssetDetailRecyclerViewAdapter(private val recyclerViewData: List<Database__AssetTransaction>) : RecyclerView.Adapter<Investment__AssetDetailRecyclerViewAdapter.ViewHolder>() {
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val transactionData: TextView = itemView.findViewById(R.id.titleTextView)
         val assetQuantity: TextView = itemView.findViewById(R.id.dateTextView)

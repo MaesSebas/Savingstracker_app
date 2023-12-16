@@ -12,6 +12,6 @@ data class Database__AssetAccountsAndAssets(
         entityColumn = "accountID",
         //entity = Database__C_AssetAndTransactions::class
     )
-    val transactions: List<Database__Asset>
+    val assets: List<Database__Asset>
     //val assets: List<Database__C_AssetAndTransactions>
 )

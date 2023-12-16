@@ -97,7 +97,15 @@ class Investment__FragmentAssetDetails : Fragment() {
         viewModel.transactionsLiveData.observe(viewLifecycleOwner) { graphDataList ->
             binding.nameAsset.text = graphDataList.asset.name
             binding.totalBalanceCards2.text = "€" + round(graphDataList.asset.lastValue).toString()
+
+            val closePrice0 = graphDataList.historicalPriceData[0].closePrice.replace(",", ".").toDouble()
+            val closePrice29 = graphDataList.historicalPriceData[29].closePrice.replace(",", ".").toDouble()
+            val percentage =
+                kotlin.math.round((closePrice0 / closePrice29 * 100)).toString() + "%"
+            binding.changePercentage.text = percentage
         }
+
+        binding.changePercentage.text =
 
         return view
     }
@@ -106,9 +114,9 @@ class Investment__FragmentAssetDetails : Fragment() {
         val screenHeight = resources.displayMetrics.heightPixels
         val startHeight = move_up_popup_layout.height
         val endHeight = if (isExpanded) {
-            (screenHeight * 0.55).toInt() // Change the default height
+            (screenHeight * 0.70).toInt() // Change the default height
         } else {
-            (screenHeight * 0.92).toInt() // Change to toggled height
+            (screenHeight * 0.95).toInt() // Change to toggled height
         }
 
         val animator = ValueAnimator.ofInt(startHeight, endHeight)

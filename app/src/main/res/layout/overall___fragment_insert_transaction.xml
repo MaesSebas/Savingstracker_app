@@ -37,7 +37,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:textColorHint="#FFFFFF"
-            android:hint="enter company"/>
+            android:hint="enter company"
+            app:helperText="Required"
+            android:inputType="text"/>
 
         <EditText
             android:id="@+id/description"
@@ -48,7 +50,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:textColorHint="#FFFFFF"
-            android:hint="enter description"/>
+            android:hint="enter description"
+            android:inputType="text"/>
 
         <EditText
             android:id="@+id/transactiondate"
@@ -59,7 +62,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:textColorHint="#FFFFFF"
-            android:hint="enter transactionsdate"/>
+            android:hint="enter transactionsdate"
+            app:helperText="Required"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
 
         <EditText
             android:id="@+id/amount"
@@ -70,7 +79,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_amount"/>
+            android:hint="@string/enter_amount"
+            app:helperText="Required"
+            android:inputType="numberDecimal"/>
 
         <EditText
             android:id="@+id/category"
@@ -81,7 +92,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_category"/>
+            android:hint="@string/enter_category"
+            app:helperText="Required"
+            android:inputType="text"/>
 
         <Button
             android:id="@+id/btnAddTransaction"

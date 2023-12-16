@@ -20,10 +20,19 @@ class Checkingsaccounts__FragmentCardsViewModel(var dao: Database__TaskDao) : Vi
             var accountData = withContext(Dispatchers.IO) {
                 dao.getAccountsWithTransactions("CheckingsAccount")
             }
+            accountData = sortDataTransactions(accountData)
             accountData += addFakeCardToGivePossibilityToAddNewCard()
             checkingsAccountLiveData.postValue(accountData)
             generateGraphDataOutOfMockData(accountData)
         }
+    }
+
+    fun sortDataTransactions(data: List<Database__AccountsAndTransactions>): List<Database__AccountsAndTransactions> {
+        val sortedData = data.map { account ->
+            val sortedTransactions = account.transactions.sortedByDescending { transaction -> transaction.transactionDate }
+            account.copy(transactions = sortedTransactions)
+        }
+        return sortedData
     }
 
     fun addFakeCardToGivePossibilityToAddNewCard():  Database__AccountsAndTransactions{

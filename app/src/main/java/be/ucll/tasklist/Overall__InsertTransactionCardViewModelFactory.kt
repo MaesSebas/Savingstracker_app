@@ -7,7 +7,6 @@ import be.ucll.tasklist.Database__TaskDao
 import be.ucll.tasklist.Overall__FragmentInsertTransactionViewModel
 
 class Overall__InsertTransactionCardViewModelFactory(private val dao: Database__TaskDao) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(Overall__FragmentInsertTransactionViewModel::class.java)) {
             return Overall__FragmentInsertTransactionViewModel(dao) as T

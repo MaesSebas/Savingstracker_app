@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import java.lang.Math.round
 
 class Extralegal__RecyclerViewAdapter(private val recyclerViewData: List<Database__Transaction>) : RecyclerView.Adapter<Extralegal__RecyclerViewAdapter.ViewHolder>() {
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)

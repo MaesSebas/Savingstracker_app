@@ -146,6 +146,44 @@ class Database__mockdataGenerator {
         return dataList
     }
 
+    fun generatePriceEvolutionData(investments: List<Database__Asset>): List<Database__PriceAsset> {
+        val mockData = mutableListOf<Database__PriceAsset>()
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+
+        val random = Random()
+
+        for (investment in investments) {
+            calendar.time = Date() // Set the calendar to the current date
+
+            for (i in 1..30) {
+                val dateOfPrice = dateFormat.format(calendar.time)
+                val openPrice = String.format("%.2f", (random.nextDouble() * (200.0 - 50.0) + 50.0))
+                val closePrice = String.format("%.2f", (random.nextDouble() * (200.0 - 50.0) + 50.0))
+                val highPrice = String.format("%.2f", (random.nextDouble() * (200.0 - 50.0) + 50.0))
+                val lowPrice = String.format("%.2f", (random.nextDouble() * (200.0 - 50.0) + 50.0))
+                val volume = String.format("%.2f", (random.nextDouble() * (5000.0 - 1000.0) + 1000.0))
+
+                val priceAsset = Database__PriceAsset(
+                    investmentId = investment.investmentId,
+                    accountID = investment.accountID,
+                    dateOfPrice = dateOfPrice,
+                    openPrice = openPrice,
+                    closePrice = closePrice,
+                    highPrice = highPrice,
+                    lowPrice = lowPrice,
+                    volume = volume
+                )
+
+                mockData.add(priceAsset)
+                calendar.add(Calendar.DAY_OF_MONTH, -1)
+            }
+        }
+
+        return mockData
+    }
+
     fun generateMockTransactionData(investments: List<Database__Asset>): List<Database__AssetTransaction> {
         val mockData = mutableListOf<Database__AssetTransaction>()
         val random = Random()

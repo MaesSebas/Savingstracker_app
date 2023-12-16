@@ -14,7 +14,6 @@ import java.util.Locale
 import java.util.Random
 
 class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : ViewModel() {
-
     private val _insertionSuccess = MutableLiveData<Boolean>()
     val insertionSuccess: LiveData<Boolean>
         get() = _insertionSuccess

@@ -23,6 +23,9 @@ interface Database__TaskDao {
     @Insert
     suspend fun insert(account: Database__Account)
 
+    @Insert
+    suspend fun insert(account: Database__PriceAsset)
+
     //transaction accounts
 
     @Insert

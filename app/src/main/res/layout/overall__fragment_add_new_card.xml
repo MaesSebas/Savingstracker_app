@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:textColorHint="#FFFFFF"
-        android:hint="@string/enter_amount"/>
+        android:hint="@string/enter_amount" />
 
     <EditText
         android:id="@+id/editTextCategory"

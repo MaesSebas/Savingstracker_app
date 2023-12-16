@@ -11,7 +11,6 @@ import be.ucll.tasklist.databinding.ExtralegalFragmentChequesBinding
 import com.sebastiaan.savingstrackerapp.Extralegal__CardViewModelFactory
 
 class Extralegal__FragmentCheques : Fragment() {
-
     private var _binding: ExtralegalFragmentChequesBinding? = null // Change to FragmentCardsBinding
     private val binding get() = _binding!!
 

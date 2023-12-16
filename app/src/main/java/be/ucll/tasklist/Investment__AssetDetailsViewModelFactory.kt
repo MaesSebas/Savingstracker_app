@@ -7,7 +7,6 @@ import be.ucll.tasklist.Database__TaskDao
 import be.ucll.tasklist.Investment__FragmentAssetDetailsViewModel
 
 class Investment__AssetDetailsViewModelFactory(private val dao: Database__TaskDao) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(Investment__FragmentAssetDetailsViewModel::class.java)) {
             return Investment__FragmentAssetDetailsViewModel(dao) as T

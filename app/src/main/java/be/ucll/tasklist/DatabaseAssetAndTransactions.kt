@@ -14,5 +14,10 @@ data class DatabaseAssetAndTransactions(
         parentColumn = "investmentId",
         entityColumn = "investmentId"
     )
-    val transactions: List<Database__AssetTransaction>
+    val transactions: List<Database__AssetTransaction>,
+    @Relation(
+        parentColumn = "investmentId",
+        entityColumn = "investmentId"
+    )
+    val historicalPriceData: List<Database__PriceAsset>
 ): Parcelable

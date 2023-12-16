@@ -106,5 +106,4 @@ class Checkingsaccounts__FragmentCards : Fragment() {
         animator.start()
         isExpanded = !isExpanded
     }
-
 }

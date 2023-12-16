@@ -18,10 +18,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.bottomNavigation)
         val navigationController = Navigation.findNavController(this, R.id.navigationHost)
 
-        /**
-         * Call looks like NavigationUI.setupWithNavController(bottomNavigation, navigationController)
-         * for native BottomNavigationView
-         */
         ExpandableBottomBarNavigationUI.setupWithNavController(bottomNavigation, navigationController)
 
         // hide navigationbar at login

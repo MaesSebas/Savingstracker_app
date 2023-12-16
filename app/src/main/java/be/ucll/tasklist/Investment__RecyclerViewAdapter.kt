@@ -14,6 +14,7 @@ class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Databas
         //val investmentLogoImageView: TextView = itemView.findViewById(R.id.investmentLogo)
         val investmentNameTextView: TextView = itemView.findViewById(R.id.investmentName)
         val investmentValueTextView: TextView = itemView.findViewById(R.id.investmentValue)
+        val investmentPercentageTextView: TextView = itemView.findViewById(R.id.investmentPercentage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +26,15 @@ class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Databas
         val transaction = recyclerViewData[position]
         holder.investmentNameTextView.text = transaction.asset.name
         holder.investmentValueTextView.text = "€" + round(transaction.asset.lastValue).toString()
+        if (transaction.historicalPriceData.size >= 29) {
+            val closePrice0 = transaction.historicalPriceData[0].closePrice.replace(",", ".").toDouble()
+            val closePrice29 = transaction.historicalPriceData[29].closePrice.replace(",", ".").toDouble()
+
+            val percentage =
+                round((closePrice0 / closePrice29 * 100)).toString() + "%"
+
+            holder.investmentPercentageTextView.text = percentage
+        }
 
         holder.itemView.setOnClickListener {
             val dataToPassTest =  recyclerViewData[position]

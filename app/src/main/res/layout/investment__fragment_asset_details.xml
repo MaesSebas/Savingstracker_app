@@ -17,17 +17,6 @@ tools:context=".Investment__FragmentAssetDetails">
     android:background="@color/black">
 
     <!-- title -->
-    <TextView
-        android:id="@+id/name_asset"
-        android:layout_width="179dp"
-        android:layout_height="55dp"
-        android:gravity="center"
-        android:text="Apple"
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Balance -->
 
@@ -104,14 +93,41 @@ tools:context=".Investment__FragmentAssetDetails">
         -->
 
     <TextView
+        android:id="@+id/name_asset"
+        android:layout_width="179dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="Apple"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/changePercentage"
+        android:layout_width="135dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:text="50%"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_asset" />
+
+    <TextView
         android:id="@+id/total_balance_cards2"
         android:layout_width="135dp"
         android:layout_height="42dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="$1,000.00"
         android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +136,7 @@ tools:context=".Investment__FragmentAssetDetails">
     <FrameLayout
         android:id="@+id/move_up_popup"
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="550dp"
         android:background="@drawable/checkingsaccounts_rounded_corners_move_up_popup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

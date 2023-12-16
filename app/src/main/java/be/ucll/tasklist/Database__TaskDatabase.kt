@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Database__Asset::class, Database__User::class, Database__Transaction::class, Database__Account::class, Database__AssetTransaction::class], version = 1, exportSchema = false)
+@Database(entities = [Database__PriceAsset::class, Database__Asset::class, Database__User::class, Database__Transaction::class, Database__Account::class, Database__AssetTransaction::class], version = 1, exportSchema = false)
 abstract class Database__TaskDatabase : RoomDatabase() {
     abstract val databaseTaskDao: Database__TaskDao
 
@@ -80,6 +80,10 @@ abstract class Database__TaskDatabase : RoomDatabase() {
             }
             val transactionData = databaseAssetMockGeneratorClass.generateMockTransactionData(assetData)
             for (transaction in transactionData) {
+                databaseConnection.insert(transaction)
+            }
+            val priceData = databaseAssetMockGeneratorClass.generatePriceEvolutionData(assetData)
+            for (transaction in priceData) {
                 databaseConnection.insert(transaction)
             }
         }
