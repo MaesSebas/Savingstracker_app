@@ -53,7 +53,8 @@ class Savingsaccounts__FragmentSavings : Fragment() {
         }
 
         viewModel.checkingsAccountLiveData.observe(viewLifecycleOwner) { newDataList ->
-            val recyclerViewAdapter = Savingsaccounts__RecyclerViewAdapter(newDataList)
+            var checkingsAccountTransactionsWithMonthDeviders = viewModel.addMonthDeviders(newDataList)
+            val recyclerViewAdapter = Savingsaccounts__RecyclerViewAdapter(checkingsAccountTransactionsWithMonthDeviders)
             binding.savingsAccountsRecyclerview.adapter = recyclerViewAdapter
         }
 

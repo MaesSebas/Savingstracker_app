@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_cards_to_overall__FragmentInsertTransaction"
             app:destination="@id/overall__FragmentInsertTransaction" />
+        <action
+            android:id="@+id/action_cards_to_overall__FragmentAddNewCard"
+            app:destination="@id/overall__FragmentAddNewCard" />
     </fragment>
     <fragment
         android:id="@+id/extra_legal"

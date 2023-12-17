@@ -16,5 +16,5 @@ data class Database__AccountsAndTransactions(
         parentColumn = "accountID",
         entityColumn = "accountID"
     )
-    val transactions: List<Database__Transaction>
+    var transactions: List<Database__Transaction>
 ): Parcelable, Serializable

@@ -24,11 +24,17 @@ class Savingsaccount__FragmentSavingsDetailsViewModel(var dao: Database__TaskDao
     fun generateGraphDataOutOfMockData(checkingsAccountData: List<Database__Transaction>) {
         //val checkingsAccountData = checkingsAccountLiveData.value ?: return
         val currentTotalAmount = 1000.0 // You should replace this with the actual current total amount
-        val groupedDataPerDay = groupTransactionsByDay(checkingsAccountData)
+        var data = removeDeviders(checkingsAccountData)
+        val groupedDataPerDay = groupTransactionsByDay(data)
         val filteredTransactionsToLast30Days = filterTransactionsForLast30Days(groupedDataPerDay)
         val totalAmountDataPerDay = calculateTotalAmountPerDay(currentTotalAmount, filteredTransactionsToLast30Days)
         val test = convertDataToGraphData(totalAmountDataPerDay)
         graphLiveData.value = test
+    }
+
+
+    fun removeDeviders(data: List<Database__Transaction>): List<Database__Transaction> {
+        return data.filter { transaction -> transaction.companyName != "Divider" }
     }
 
     fun convertDataToGraphData(totalAmountDataPerDay: List<Pair<String, String>>): List<String> {

@@ -34,10 +34,10 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
 
             val includedLayout: View = itemView.findViewById(R.id.include)
             includedLayout.setOnClickListener {
-                val dataToPassTest =  1L
+                val dataToPassTest =  "ExtraLegalAccount"
                 //altijd android name gebruiken van navigation.xml + Directions
                 val action = Extralegal__FragmentChequesDirections
-                    .actionExtraLegalToOverallFragmentInsertTransaction2(dataToPassTest)
+                    .actionExtraLegalToOverallFragmentAddNewCard2(dataToPassTest)
                 Navigation.findNavController(itemView).navigate(action)
             }
 
@@ -64,9 +64,15 @@ class Extralegal__ViewPagerAdapter(private val context: Context, private var dat
         balanceTextView.text = "€" + customData.account.totalBalance
 
 
-        val recyclerViewAdapter = Extralegal__RecyclerViewAdapter(customData.transactions)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = recyclerViewAdapter
+        if (customData.transactions.isEmpty()) {
+            itemView.findViewById<TextView>(R.id.noTransactionsMessage).text = "No transactions yet"
+            itemView.findViewById<RecyclerView>(R.id.recyclerviewWithData).visibility = View.GONE
+        } else {
+            itemView.findViewById<TextView>(R.id.noTransactionsMessage).visibility = View.GONE
+            val recyclerViewAdapter = Extralegal__RecyclerViewAdapter(customData.transactions)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = recyclerViewAdapter
+        }
 
         Objects.requireNonNull(container).addView(itemView)
         return itemView

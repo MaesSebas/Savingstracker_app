@@ -31,8 +31,7 @@ class Overall__FragmentAddNewCard : Fragment() {
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         //Arguments
-        //val typeAccount = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
-        val typeAccount = "SavingsAccount"
+        val typeAccount = Investment__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
 
         //ViewModel
         val viewModelFactory = Overall__CardViewModelFactory(dao)

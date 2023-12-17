@@ -29,10 +29,10 @@ class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private 
 
             val includedLayout: View = itemView.findViewById(R.id.include)
             includedLayout.setOnClickListener {
-                val dataToPassTest =  1L
+                val dataToPassTest =  "CheckingsAccount"
                 //altijd android name gebruiken van navigation.xml + Directions
                 val action = Checkingsaccounts__FragmentCardsDirections
-                    .actionCardsToOverallFragmentInsertTransaction(dataToPassTest)
+                    .actionCardsToOverallFragmentAddNewCard(dataToPassTest)
                 Navigation.findNavController(itemView).navigate(action)
             }
 
@@ -60,9 +60,16 @@ class Checkingsaccounts__ViewPagerAdapter(private val context: Context, private 
         descriptionTextView.text = "Transaction"
         balanceTextView.text = "€" + customData.account.totalBalance
 
-        val recyclerViewAdapter = Checkingsaccounts__RecyclerViewAdapter(customData.transactions)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = recyclerViewAdapter
+        if (customData.transactions.isEmpty()) {
+            itemView.findViewById<TextView>(R.id.noTransactionsMessage).text = "No transactions yet"
+            itemView.findViewById<RecyclerView>(R.id.recyclerviewWithData).visibility = View.GONE
+        } else {
+            itemView.findViewById<TextView>(R.id.noTransactionsMessage).visibility = View.GONE
+            val recyclerViewAdapter = Checkingsaccounts__RecyclerViewAdapter(customData.transactions)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = recyclerViewAdapter
+        }
+
 
         Objects.requireNonNull(container).addView(itemView)
         return itemView

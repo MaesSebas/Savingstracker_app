@@ -40,7 +40,8 @@ class Extralegal__FragmentCheques : Fragment() {
         viewPager = binding.extralegalViewPager
 
         viewModel.extraLegalCardsLiveData.observe(viewLifecycleOwner) { newDataList ->
-            extraLegalViewPagerAdapter = Extralegal__ViewPagerAdapter(requireContext(), newDataList)
+            var checkingsAccountTransactionsWithMonthDeviders = viewModel.addMonthDeviders(newDataList)
+            extraLegalViewPagerAdapter = Extralegal__ViewPagerAdapter(requireContext(), checkingsAccountTransactionsWithMonthDeviders)
             viewPager.adapter = extraLegalViewPagerAdapter
         }
 

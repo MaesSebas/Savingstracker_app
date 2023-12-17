@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewModel() {
     var extraLegalCardsLiveData: MutableLiveData<List<Database__AccountsAndTransactions>> = MutableLiveData()
@@ -25,6 +27,36 @@ class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewMod
             totalCardAmount.value = totalAmount
             graphLiveData.value = graphDataFromatter.generateGraphDataOutOfMockData(accountData, totalAmount)
         }
+    }
+
+    fun addMonthDeviders(data: List<Database__AccountsAndTransactions>): List<Database__AccountsAndTransactions> {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        for (account in data) {
+            val transactions = account.transactions.toMutableList()
+            var previousMonth = ""
+
+            for (i in transactions.indices) {
+                val currentTransaction = transactions[i]
+                val currentMonth = LocalDate.parse(currentTransaction.transactionDate, formatter).month.toString()
+                if (previousMonth != currentMonth) {
+                    val newTransaction = Database__Transaction(
+                        transactionID= 1,
+                        userID= 1,
+                        accountID= 1,
+                        companyName= "Divider",
+                        description= "Divider",
+                        transactionDate= currentMonth,
+                        category= "Divider",
+                        amount= 999999.00,
+                        type= "Divider"
+                    )
+                    transactions.add(i, newTransaction)
+                }
+                previousMonth = currentMonth
+            }
+            account.transactions = transactions
+        }
+        return data
     }
 
     fun sortDataTransactions(data: List<Database__AccountsAndTransactions>): List<Database__AccountsAndTransactions> {
