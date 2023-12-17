@@ -11,8 +11,8 @@ data class Database__Account(
     @PrimaryKey(autoGenerate = true)
     val accountID: Long = 0L,
     val userID: Long,
-    val accountName: String,
-    val accountNumber: String,
-    val totalBalance: String,
-    val accountType: String
+    var accountName: String,
+    var accountNumber: String,
+    var totalBalance: String,
+    var accountType: String
 ): Parcelable

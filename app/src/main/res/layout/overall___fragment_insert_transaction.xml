@@ -17,16 +17,46 @@
     android:padding="16dp"
     android:background="@color/black">
 
-        <Spinner
-            android:id="@+id/spinnerTransactionType"
+        <EditText
+            android:id="@+id/editTextTitle"
             android:layout_width="0dp"
+            android:textAllCaps="true"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:hint="INSERT NEW TRANSACTION"
+            android:inputType="text"
+            android:textColorHint="#FFFFFF"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="40dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerTransactionType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="50dp"
             android:entries="@array/transaction_types"
             android:prompt="@string/select_transaction_type"/>
+
+        <View
+            android:id="@+id/lineDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/spinnerTransactionType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"/>
 
         <EditText
             android:id="@+id/companyName"
@@ -35,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@id/spinnerTransactionType"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="25dp"
             android:textColorHint="#FFFFFF"
             android:hint="enter company"
             app:helperText="Required"
@@ -48,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/companyName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="#FFFFFF"
             android:hint="enter description"
             android:inputType="text"/>
@@ -60,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="#FFFFFF"
             android:hint="enter transactionsdate"
             app:helperText="Required"
@@ -77,9 +107,9 @@
             app:layout_constraintTop_toBottomOf="@id/transactiondate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_amount"
+            android:hint="amount"
             app:helperText="Required"
             android:inputType="numberDecimal"/>
 
@@ -90,9 +120,9 @@
             app:layout_constraintTop_toBottomOf="@id/amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="#FFFFFF"
-            android:hint="@string/enter_category"
+            android:hint="category"
             app:helperText="Required"
             android:inputType="text"/>
 
@@ -103,9 +133,10 @@
             app:layout_constraintTop_toBottomOf="@id/category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="25dp"
             android:text="@string/add_transaction"
             android:textColor="#FFF"
             app:backgroundTint="@color/circle_light_gray"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

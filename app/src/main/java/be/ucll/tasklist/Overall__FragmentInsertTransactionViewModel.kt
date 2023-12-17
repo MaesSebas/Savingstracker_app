@@ -25,7 +25,7 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
         val calendar = Calendar.getInstance()
         val dateBuy = dateFormat.format(Date())
         calendar.time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dateBuy)
-        calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30) + 1) // Add 1 to 30 days
+        calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30) + 1)
         dateFormat.format(calendar.time)
 
         val transaction = Database__Transaction(
@@ -33,14 +33,37 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
             accountID = AccountId,
             companyName = CompanyName,
             description = Description,
-            transactionDate = "2023-12-12",
+            transactionDate = TransactionDate,
             category = Category,
             amount = Amount,
             type = Type
         )
         viewModelScope.launch {
-            dao.insert(transaction)
-            _insertionSuccess.value = true
+            withContext(Dispatchers.IO) {
+                var account = dao.getAccountById(AccountId)
+                account.totalBalance = changeTotalAmount(Type, account.totalBalance.toDouble(), Amount).toString()
+                dao.update(account)
+                val transaction = Database__Transaction(
+                    userID = 1,
+                    accountID = AccountId,
+                    companyName = CompanyName,
+                    description = Description,
+                    transactionDate = TransactionDate,
+                    category = Category,
+                    amount = Amount,
+                    type = Type
+                )
+                dao.insert(transaction)
+                _insertionSuccess.postValue(true)
+            }
+        }
+    }
+
+    fun changeTotalAmount(expenseOrIncome: String, oldAmount: Double, transactionAmount: Double): Double {
+        if(expenseOrIncome == "Income") {
+            return transactionAmount + oldAmount
+        } else {
+            return oldAmount - transactionAmount
         }
     }
 

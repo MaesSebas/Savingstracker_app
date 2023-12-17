@@ -17,6 +17,7 @@ class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewMod
             var accountData = withContext(Dispatchers.IO) {
                 dao.getAccountsWithTransactions("ExtraLegalAccount")
             }
+            accountData = sortDataTransactions(accountData)
             accountData += addFakeCardToGivePossibilityToAddNewCard()
             extraLegalCardsLiveData.postValue(accountData)
             val graphDataFromatter = Overall_ConvertToGraphDataFormat()
@@ -24,6 +25,14 @@ class Extralegal__FragmentChequesViewModel(var dao: Database__TaskDao) : ViewMod
             totalCardAmount.value = totalAmount
             graphLiveData.value = graphDataFromatter.generateGraphDataOutOfMockData(accountData, totalAmount)
         }
+    }
+
+    fun sortDataTransactions(data: List<Database__AccountsAndTransactions>): List<Database__AccountsAndTransactions> {
+        val sortedData = data.map { account ->
+            val sortedTransactions = account.transactions.sortedByDescending { transaction -> transaction.transactionDate }
+            account.copy(transactions = sortedTransactions)
+        }
+        return sortedData
     }
 
     fun addFakeCardToGivePossibilityToAddNewCard():  Database__AccountsAndTransactions{

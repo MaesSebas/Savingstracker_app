@@ -75,8 +75,12 @@ class Overall__FragmentInsertTransaction : Fragment() {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { view, year, monthOfYear, dayOfMonth ->
+                    /*
                     val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                     binding.transactiondate.setText(dat)
+                     */
+                    val formattedDate = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth)
+                    binding.transactiondate.setText(formattedDate)
                 },
                 year,
                 month,
@@ -86,9 +90,10 @@ class Overall__FragmentInsertTransaction : Fragment() {
         }
 
         binding.btnAddTransaction.setOnClickListener {
+            val expenseOrIncome = binding.spinnerTransactionType.selectedItem.toString()
             val companyName = binding.companyName.text.toString().trim()
             val description = binding.description.text.toString().trim()
-            val transactionDate = binding.transactiondate.toString().trim()
+            val transactionDate = binding.transactiondate.text.trim()
             val category = binding.category.text.toString().trim()
             val amountText = binding.amount.text.toString().trim()
 
@@ -103,12 +108,12 @@ class Overall__FragmentInsertTransaction : Fragment() {
 
             viewModel.insertCardTransaction(
                 accountId,
-                binding.companyName.text.toString(),
-                binding.description.text.toString(),
-                binding.transactiondate.toString(),
-                binding.category.text.toString(),
+                companyName,
+                description,
+                transactionDate.toString(),
+                category,
                 binding.amount.text.toString().toDoubleOrNull() ?: 0.0,
-                "test")
+                expenseOrIncome)
         }
 
         //binding.spinnerTransactionType.selectedItem.toString())

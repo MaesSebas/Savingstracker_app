@@ -26,11 +26,6 @@ class Savingsaccount__FragmentSavingsDetails : Fragment() {
 
     private lateinit var viewModel: Savingsaccount__FragmentSavingsDetailsViewModel
 
-    // popup window variables
-    private lateinit var move_up_popup_layout: FrameLayout
-    private lateinit var toggle_move_up_popup_button: ImageButton
-    private var isExpanded = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,42 +65,12 @@ class Savingsaccount__FragmentSavingsDetails : Fragment() {
 
 
         binding.button2.setOnClickListener {
-            val dataToPass = 1L
+            val dataToPass = dataTest.data.account.accountID
             val action = Savingsaccount__FragmentSavingsDetailsDirections
                 .actionSavingsaccountFragmentSavingsDetailsToOverallFragmentInsertTransaction(dataToPass)
             findNavController().navigate(action)
         }
 
-        move_up_popup_layout = binding.moveUpPopup
-        toggle_move_up_popup_button = binding.toggleMoveUpPopup
-
-        toggle_move_up_popup_button.setOnClickListener {
-            toggleHeightMoveUpPopup()
-        }
-
         return view
-    }
-
-    private fun toggleHeightMoveUpPopup() {
-        val screenHeight = resources.displayMetrics.heightPixels
-        val startHeight = move_up_popup_layout.height
-        val endHeight = if (isExpanded) {
-            (screenHeight * 0.49).toInt() // Change the default height
-        } else {
-            (screenHeight * 0.92).toInt() // Change to toggled height
-        }
-
-        val animator = ValueAnimator.ofInt(startHeight, endHeight)
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.duration = 500 // Animation duration in milliseconds
-
-        animator.addUpdateListener { animation ->
-            val animatedValue = animation.animatedValue as Int
-            move_up_popup_layout.layoutParams.height = animatedValue
-            move_up_popup_layout.requestLayout()
-        }
-
-        animator.start()
-        isExpanded = !isExpanded
     }
 }

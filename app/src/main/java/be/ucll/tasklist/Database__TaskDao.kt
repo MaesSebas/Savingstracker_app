@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 
 @Dao
 interface Database__TaskDao {
@@ -42,10 +43,16 @@ interface Database__TaskDao {
 
     // *-----------  get data -----------------------------*
 
+    @Update
+    suspend fun update(account: Database__Account)
 
     @Transaction
     @Query("SELECT * FROM account_table WHERE accountType = :accountType")
     fun getAccountsWithTransactions(accountType: String): List<Database__AccountsAndTransactions>
+
+    @Transaction
+    @Query("SELECT * FROM account_table WHERE accountID = :id")
+    fun getAccountById(id: Long): Database__Account
 
     @Transaction
     @Query("SELECT * FROM account_table WHERE accountType = 'AssetAccount'")
