@@ -76,14 +76,20 @@ class Investment__FragmentAssetDetails : Fragment() {
         }
 
         viewModel.transactionsLiveData.observe(viewLifecycleOwner) { newDataList ->
-            val recyclerViewAdapter =
-                Investment__AssetDetailRecyclerViewAdapter(newDataList.transactions)
-
             val includedLayout =
                 view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
-            val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData)
-            yourElement.layoutManager = LinearLayoutManager(context)
-            yourElement.adapter = recyclerViewAdapter
+
+            if (newDataList.transactions.isEmpty()) {
+                includedLayout.findViewById<TextView>(R.id.noTransactionsMessage).text = "No transactions yet"
+                includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData).visibility = View.GONE
+            } else {
+                includedLayout.findViewById<TextView>(R.id.noTransactionsMessage).visibility = View.GONE
+                val recyclerViewAdapter =
+                    Investment__AssetDetailRecyclerViewAdapter(newDataList.transactions)
+                val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData)
+                yourElement.layoutManager = LinearLayoutManager(context)
+                yourElement.adapter = recyclerViewAdapter
+            }
         }
 
         viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
@@ -98,14 +104,16 @@ class Investment__FragmentAssetDetails : Fragment() {
             binding.nameAsset.text = graphDataList.asset.name
             binding.totalBalanceCards2.text = "€" + round(graphDataList.asset.lastValue).toString()
 
-            val closePrice0 = graphDataList.historicalPriceData[0].closePrice.replace(",", ".").toDouble()
-            val closePrice29 = graphDataList.historicalPriceData[29].closePrice.replace(",", ".").toDouble()
-            val percentage =
-                kotlin.math.round((closePrice0 / closePrice29 * 100)).toString() + "%"
-            binding.changePercentage.text = percentage
+            if (graphDataList.historicalPriceData.size >= 29) {
+                val closePrice0 = graphDataList.historicalPriceData[0].closePrice.replace(",", ".").toDouble()
+                val closePrice29 = graphDataList.historicalPriceData[29].closePrice.replace(",", ".").toDouble()
+                val percentage =
+                    kotlin.math.round((closePrice0 / closePrice29 * 100)).toString() + "%"
+                binding.changePercentage.text = percentage
+            } else {
+                binding.changePercentage.text = "0%"
+            }
         }
-
-        binding.changePercentage.text =
 
         return view
     }

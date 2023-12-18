@@ -34,6 +34,8 @@ class Investment__RecyclerViewAdapter(private val recyclerViewData: List<Databas
                 round((closePrice0 / closePrice29 * 100)).toString() + "%"
 
             holder.investmentPercentageTextView.text = percentage
+        } else {
+            holder.investmentPercentageTextView.text = "0%"
         }
 
         holder.itemView.setOnClickListener {

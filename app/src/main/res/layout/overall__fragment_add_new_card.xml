@@ -16,17 +16,47 @@
     android:padding="16dp"
     android:background="@color/black">
 
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="0dp"
+        android:textAllCaps="true"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="ADD NEW ACCOUNT"
+        android:inputType="text"
+        android:textColorHint="#FFFFFF"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="40dp"/>
+
 
     <Spinner
         android:id="@+id/spinnerTransactionType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="8dp"
         android:entries="@array/account_types"
         android:prompt="@string/select_transaction_type"/>
+
+    <View
+        android:id="@+id/lineDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTransactionType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"/>
 
     <EditText
         android:id="@+id/editTextAmount"
@@ -35,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerTransactionType"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="25dp"
         android:textColorHint="#FFFFFF"
         android:hint="@string/enter_amount" />
 
@@ -46,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@id/editTextAmount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:textColorHint="#FFFFFF"
         android:hint="@string/enter_category"/>
 
@@ -57,7 +87,7 @@
             app:layout_constraintTop_toBottomOf="@id/editTextCategory"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="#FFFFFF"
             android:hint="Accountnumber"/>
 
@@ -68,8 +98,8 @@
         app:layout_constraintTop_toBottomOf="@id/editAccountNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:text="@string/add_transaction"
+        android:layout_marginTop="25dp"
+        android:text="Add new account"
         android:textColor="#FFF"
         app:backgroundTint="@color/circle_light_gray"/>
 

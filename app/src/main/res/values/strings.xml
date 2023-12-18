@@ -19,6 +19,13 @@
         <item>Expense</item>
     </array>
 
+    <array name="asset_types">
+        <item>Stocks</item>
+        <item>ETFS</item>
+        <item>Crypto</item>
+        <item>Obligations</item>
+    </array>
+
     <array name="account_types">
         <item>CheckingsAccount</item>
         <item>SavingsAccount</item>
