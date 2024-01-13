@@ -57,6 +57,8 @@ class Investment__FragmentInsertTransaction : Fragment() {
 
         viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
+                val navController = findNavController()
+                navController.navigateUp()
                 viewModel.resetInsertionSuccess()
             }
         })

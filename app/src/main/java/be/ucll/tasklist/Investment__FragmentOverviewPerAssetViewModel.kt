@@ -2,6 +2,13 @@ package be.ucll.tasklist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import java.time.LocalDate
 
 class Investment__FragmentOverviewPerAssetViewModel(var dao: Database__TaskDao) : ViewModel() {
@@ -13,6 +20,31 @@ class Investment__FragmentOverviewPerAssetViewModel(var dao: Database__TaskDao) 
     fun setTransactionsDataAndFungateAsInit(data: List<DatabaseAssetAndTransactions>) {
         transactionsLiveData.value = data
         graphLiveData.value = generateGraphData(transactionsLiveData.value!!)
+
+        getTotalAccount(data[0].asset.investmentType)
+    }
+
+    fun getTotalAccount(type: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            val account = withContext(Dispatchers.IO) {
+                dao.getAccountById(7)
+            }
+
+            val values = JSONArray(account.assetCategoryValues)
+
+            val totalAmount = when (type) {
+                "Etfs" -> values.getDouble(0)
+                "Cryptos" -> values.getDouble(1)
+                "Stocks" -> values.getDouble(2)
+                "Obligations" -> values.getDouble(3)
+                else -> 0.0
+            }
+
+            val mainScope = CoroutineScope(Dispatchers.Main)
+            mainScope.launch {
+                totalCardAmount.value = totalAmount
+            }
+        }
     }
 
     fun generateGraphData(data: List<DatabaseAssetAndTransactions>): List<Double> {

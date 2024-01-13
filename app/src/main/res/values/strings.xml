@@ -26,6 +26,11 @@
         <item>Obligations</item>
     </array>
 
+    <array name="asset_transaction_types">
+        <item>buy</item>
+        <item>sell</item>
+    </array>
+
     <array name="account_types">
         <item>CheckingsAccount</item>
         <item>SavingsAccount</item>

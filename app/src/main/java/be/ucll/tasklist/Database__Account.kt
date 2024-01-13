@@ -14,5 +14,6 @@ data class Database__Account(
     var accountName: String,
     var accountNumber: String,
     var totalBalance: String,
-    var accountType: String
+    var accountType: String,
+    var assetCategoryValues: String = "",
 ): Parcelable

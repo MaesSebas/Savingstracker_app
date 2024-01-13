@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -30,14 +31,6 @@ class Investment__FragmentAssetDetails : Fragment() {
 
     private lateinit var viewModel: Investment__FragmentAssetDetailsViewModel
 
-    // viewPager
-    private lateinit var viewPager: ViewPager
-    private lateinit var checkingsaccountsViewPagerAdapter: Checkingsaccounts__ViewPagerAdapter
-
-    // popup window variables
-    private lateinit var move_up_popup_layout: FrameLayout
-    private lateinit var toggle_move_up_popup_button: ImageButton
-    private var isExpanded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,26 +60,23 @@ class Investment__FragmentAssetDetails : Fragment() {
         binding.cardsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //move up popup to top screen functionality
-        move_up_popup_layout = binding.moveUpPopup
-        toggle_move_up_popup_button = binding.toggleMoveUpPopup
-
-        toggle_move_up_popup_button.setOnClickListener {
-            toggleHeightMoveUpPopup()
+        binding.button.setOnClickListener {
+            val dataToPass = assetAndTransactions.asset.investmentId.toString()
+            val action = Investment__FragmentAssetDetailsDirections
+                .actionInvestmentFragmentAssetDetailsToInvestmentFragmentAssetTransaction(dataToPass)
+            findNavController().navigate(action)
         }
 
         viewModel.transactionsLiveData.observe(viewLifecycleOwner) { newDataList ->
-            val includedLayout =
-                view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
 
             if (newDataList.transactions.isEmpty()) {
-                includedLayout.findViewById<TextView>(R.id.noTransactionsMessage).text = "No transactions yet"
-                includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData).visibility = View.GONE
+                binding.noTransactionsMessage.text = "No transactions yet"
+                binding.recyclerviewTransactionData.visibility = View.GONE
             } else {
-                includedLayout.findViewById<TextView>(R.id.noTransactionsMessage).visibility = View.GONE
+                binding.noTransactionsMessage.visibility = View.GONE
                 val recyclerViewAdapter =
                     Investment__AssetDetailRecyclerViewAdapter(newDataList.transactions)
-                val yourElement = includedLayout.findViewById<RecyclerView>(R.id.recyclerviewTransactionData)
+                val yourElement = binding.recyclerviewTransactionData
                 yourElement.layoutManager = LinearLayoutManager(context)
                 yourElement.adapter = recyclerViewAdapter
             }
@@ -94,9 +84,7 @@ class Investment__FragmentAssetDetails : Fragment() {
 
         viewModel.graphLiveData.observe(viewLifecycleOwner) { graphDataList ->
             val chartEntryModel = entryModelOf(*graphDataList.map { it.toFloat() }.toTypedArray())
-            val includedLayout =
-                view.findViewById<ConstraintLayout>(R.id.includedGraphInvestmentAssetDetails)
-            val yourElement = includedLayout.findViewById<ChartView>(R.id.card_chart_progression)
+            val yourElement = binding.cardChartProgression
             yourElement.setModel(chartEntryModel)
         }
 
@@ -116,28 +104,5 @@ class Investment__FragmentAssetDetails : Fragment() {
         }
 
         return view
-    }
-
-    private fun toggleHeightMoveUpPopup() {
-        val screenHeight = resources.displayMetrics.heightPixels
-        val startHeight = move_up_popup_layout.height
-        val endHeight = if (isExpanded) {
-            (screenHeight * 0.70).toInt() // Change the default height
-        } else {
-            (screenHeight * 0.95).toInt() // Change to toggled height
-        }
-
-        val animator = ValueAnimator.ofInt(startHeight, endHeight)
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.duration = 500 // Animation duration in milliseconds
-
-        animator.addUpdateListener { animation ->
-            val animatedValue = animation.animatedValue as Int
-            move_up_popup_layout.layoutParams.height = animatedValue
-            move_up_popup_layout.requestLayout()
-        }
-
-        animator.start()
-        isExpanded = !isExpanded
     }
 }

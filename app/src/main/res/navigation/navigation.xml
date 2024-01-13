@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/cards">
+    app:startDestination="@id/login__FragmentLogin">
 
     <fragment
         android:id="@+id/savings"
@@ -71,6 +71,9 @@
         <argument
             android:name="selectedData"
             app:argType="be.ucll.tasklist.DatabaseAssetAndTransactions" />
+        <action
+            android:id="@+id/action_investment__FragmentAssetDetails_to_investment__fragment_asset_transaction"
+            app:destination="@id/investment__fragment_asset_transaction" />
     </fragment>
     <fragment
         android:id="@+id/investment__FragmentInsertTransaction"
@@ -134,5 +137,14 @@
         <action
             android:id="@+id/action_savingsaccount__FragmentSavingsDetails_to_overall__FragmentInsertTransaction"
             app:destination="@id/overall__FragmentInsertTransaction" />
+    </fragment>
+    <fragment
+        android:id="@+id/investment__fragment_asset_transaction"
+        android:name="be.ucll.tasklist.Investment__fragment_asset_transaction"
+        android:label="investment__fragment_asset_transaction"
+        tools:layout="@layout/investment__fragment_asset_transaction">
+        <argument
+            android:name="selectedData"
+            app:argType="string" />
     </fragment>
 </navigation>

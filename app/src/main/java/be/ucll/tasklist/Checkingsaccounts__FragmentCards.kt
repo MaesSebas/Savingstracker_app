@@ -54,8 +54,8 @@ class Checkingsaccounts__FragmentCards : Fragment() {
 
         viewModel.checkingsAccountLiveData.observe(viewLifecycleOwner) { newDataList ->
             // Update the ViewPager adapter when the data changes
-            var checkingsAccountTransactionsWithMonthDeviders = viewModel.addMonthDeviders(newDataList)
-            checkingsaccountsViewPagerAdapter = Checkingsaccounts__ViewPagerAdapter(requireContext(), checkingsAccountTransactionsWithMonthDeviders)
+            var checkingsAccountTransactionsWithMonthDividers = viewModel.addMonthDeviders(newDataList)
+            checkingsaccountsViewPagerAdapter = Checkingsaccounts__ViewPagerAdapter(requireContext(), checkingsAccountTransactionsWithMonthDividers)
             viewPager.adapter = checkingsaccountsViewPagerAdapter
         }
 

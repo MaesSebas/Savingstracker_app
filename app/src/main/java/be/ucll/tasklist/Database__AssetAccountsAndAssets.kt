@@ -10,8 +10,7 @@ data class Database__AssetAccountsAndAssets(
     @Relation(
         parentColumn = "accountID",
         entityColumn = "accountID",
-        //entity = Database__C_AssetAndTransactions::class
     )
     val assets: List<Database__Asset>
-    //val assets: List<Database__C_AssetAndTransactions>
 )
+

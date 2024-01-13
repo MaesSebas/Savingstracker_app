@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -13,53 +14,18 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+import java.util.concurrent.atomic.AtomicInteger
 
-
-
-/*
-data class AssetData(
-    val information: String,
-    val symbol: String,
-    val lastRefreshed: String,
-    val outputSize: String,
-    val timeZone: String,
-    var Prices: List<PriceAsset>,
-    var error: String,
-)
-
-@Parcelize
-@Entity(tableName = "investment_priceAsset_table")
-data class Database__PriceAsset(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
-    val investmentId: Long,
-    val accountID: Long,
-    val dateOfPrice: String,
-    val openPrice: String,
-    val closePrice: String,
-    val highPrice: String,
-    val lowPrice: String,
-    val volume: String
-): Parcelable
-
-data class PriceAsset(
-    val date: String,
-    val open: String,
-    val high: String,
-    val low: String,
-    val close: String,
-    val volume: String
-)
-
- */
-
+data class Error(val investmentId: Long, val accountId: Long, val errorMessage: String)
 class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : ViewModel() {
     var investmentsLiveData: MutableLiveData<List<DatabaseAssetAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<Double>> = MutableLiveData()
     var totalCardAmount: MutableLiveData<Double> = MutableLiveData(0.0)
     var accountLiveData: MutableLiveData<List<Database__AssetAccountsAndAssets>> = MutableLiveData()
-    private var assetDataFromAPI: MutableList<Database__PriceAsset> = mutableListOf()
 
+    var errorBuffer: MutableList<Error> = mutableListOf()
     init {
         viewModelScope.launch {
             val assetData = withContext(Dispatchers.IO) {
@@ -73,10 +39,71 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
             investmentsLiveData.value = assetData
             graphLiveData.value = generateGraphData(assetData)
 
-            //fetchDataFromApi(assetData)
+
+            val apiData = filterAsetDataForAPI(assetData);
+            if(apiData.isEmpty()) {
+                return@launch
+            }
+            fetchDataFromApi(apiData) { assetDataList ->
+                if (assetDataList.isNotEmpty()) {
+                    viewModelScope.launch {
+                        updateDatabase(assetDataList)
+                    }
+                } else {
+                    // Handle the case when the list is empty
+                }
+                viewModelScope.launch {
+                    handleErrors()
+                }
+            }
         }
     }
 
+    suspend fun handleErrors() {
+        for (error in errorBuffer) {
+            withContext(Dispatchers.IO) {
+                val asset = dao.getAssetById(error.investmentId)
+                asset.lastUpdated = LocalDate.now().toString()
+                asset.errorTickerNotFound = true
+                dao.update(asset)
+            }
+        }
+    }
+
+    suspend fun updateDatabase(newData: List<Database__PriceAsset>) {
+        withContext(Dispatchers.IO) {
+            val uniqueIds = newData.map { it.investmentId }.distinct()
+            for (id in uniqueIds) {
+                dao.deleteOldEntryById(id)
+            }
+            for (entry in newData) {
+                dao.insert(entry)
+            }
+            for (id in uniqueIds) {
+                val lastUpdatedDate = newData.filter { it.investmentId == id }
+                    .maxByOrNull { it.dateOfPrice }?.dateOfPrice
+                val Asset = dao.getAssetById(id)
+                val closePriceString = newData.filter { it.investmentId == id }
+                    .maxByOrNull { it.dateOfPrice }?.closePrice ?: ""
+
+                Asset.lastValue = closePriceString.toDoubleOrNull() ?: Asset.lastValue
+                Asset.lastValue = Asset.quantity.toDouble() * Asset.lastValue
+                Asset.lastUpdated = lastUpdatedDate as String
+                dao.update(Asset)
+            }
+        }
+    }
+
+    fun filterAsetDataForAPI(allInvestments: List<DatabaseAssetAndTransactions>): List<DatabaseAssetAndTransactions> {
+        val today = LocalDate.now()
+        val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+        var test =  allInvestments.filter {
+            it.asset.investmentType == "Stocks" &&
+                    LocalDate.parse(it.asset.lastUpdated, dateFormatter).isBefore(today)
+        } //.take(2)
+        return test
+    }
 
     fun getInvestmentsDatPerType(allInvestments: MutableLiveData<List<DatabaseAssetAndTransactions>>, type: String): DatabaseParcableAssetAndTransactions {
         val filteredList = allInvestments.value?.filter { it.asset.investmentType == type }
@@ -97,8 +124,7 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
             val assetData = calculateValueAssetsPerDay(quantitiesPerDay, valuesPerDay)
             assets30DaysData.add(assetData)
         }
-        var test = countAssetsTogether(assets30DaysData)
-        return test
+       return countAssetsTogether(assets30DaysData)
     }
 
     fun countAssetsTogether(list: MutableList<List<Double>>): List<Double> {
@@ -146,21 +172,6 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         return test
     }
 
-    fun calculateQuantityOnDate(investment: DatabaseAssetAndTransactions, date: String): Int {
-        var quantityOnDate = investment.asset.quantity
-
-        for (transaction in investment.transactions) {
-            if (transaction.transactionDate <= date) {
-                when (transaction.transactionType) {
-                    "buy" -> quantityOnDate += transaction.quantity
-                    "sell" -> quantityOnDate -= transaction.quantity
-                }
-            }
-        }
-
-        return quantityOnDate
-    }
-
     fun getDataPerDayFromAssetAPI(): List<Double> {
         val randomNumbers = mutableSetOf<Double>()
         while (randomNumbers.size < 30) {
@@ -184,20 +195,37 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         return valuesPerDay
     }
 
-    fun fetchDataFromApi(assets: List<DatabaseAssetAndTransactions>) {
+
+    fun fetchDataFromApi(assets: List<DatabaseAssetAndTransactions>, callback: (List<Database__PriceAsset>) -> Unit): List<Database__PriceAsset> {
         val apiKey = "LAH58AZFLBLNGVH0"
         val function = "TIME_SERIES_DAILY"
         val outputSize = "30"
+        val allAssetTimeData = mutableListOf<Database__PriceAsset>()
+
+        val assetsFetched = AtomicInteger(0)
 
         for (asset in assets) {
-            val apiUrl =
-                "https://www.alphavantage.co/query?function=$function&symbol=${asset.asset.ticker}&outputsize=$outputSize&apikey=$apiKey"
-            FetchDataTask(asset.asset.investmentId, asset.asset.accountID).execute(apiUrl)
-            return
+            val apiUrl = "https://www.alphavantage.co/query?function=$function&symbol=${asset.asset.ticker}&outputsize=$outputSize&apikey=$apiKey"
+
+            FetchDataTask(asset.asset.investmentId, asset.asset.accountID) { assetTimeData ->
+                allAssetTimeData.addAll(assetTimeData)
+
+                // Increment the counter and check if all assets have been fetched
+                if (assetsFetched.incrementAndGet() == assets.size) {
+                    callback(allAssetTimeData)
+                }
+            }.execute(apiUrl)
         }
+
+        // Return an empty list since the actual data will be provided via the callback
+        return emptyList()
     }
 
-    private inner class FetchDataTask(private val investmentId: Long, private val accountId: Long) : AsyncTask<String, Void, JSONObject?>() {
+    private inner class FetchDataTask(
+        private val investmentId: Long,
+        private val accountId: Long,
+        private val callback: (List<Database__PriceAsset>) -> Unit
+    ) : AsyncTask<String, Void, JSONObject?>() {
 
         override fun doInBackground(vararg params: String): JSONObject? {
             val apiUrl = params[0]
@@ -228,57 +256,42 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         }
 
         override fun onPostExecute(result: JSONObject?) {
-            if (result != null) {
-                handleApiResponse(result, investmentId, accountId)
+            if (result?.has("Error Message") == true) {
+                errorCallback(investmentId, accountId)
+            }else if (result != null) {
+                handleApiResponse(result, investmentId, accountId, callback)
             } else {
-                val test = "test"
+                callback(emptyList())
             }
         }
-    }
 
-    private fun handleApiResponse(response: JSONObject, investmentId: Long, accountId: Long) {
-        //val rawMetaDataOfAset = response.getJSONObject("Meta Data")
-        val rawTimeDataOfAsset = response.getJSONObject("Time Series (Daily)")
-
-        //val assetData = parseOveralData(rawMetaDataOfAset)
-        val assetTimeData = parseTimeData(rawTimeDataOfAsset, investmentId, accountId)
-        assetDataFromAPI.addAll(assetTimeData)
-
-        //assetData.Prices = assetTimeData
-        //assetDataFromAPI.add(assetData)
-    }
-
-    /*
-    private fun parseOveralData(metaData: JSONObject): AssetData {
-        return AssetData(
-            information = metaData.getString("1. Information"),
-            symbol = metaData.getString("2. Symbol"),
-            lastRefreshed = metaData.getString("3. Last Refreshed"),
-            outputSize = metaData.getString("4. Output Size"),
-            timeZone = metaData.getString("5. Time Zone"),
-            Prices = emptyList(),
-            error = "OK",
-        )
-    }
-     */
-
-    private fun parseTimeData(timeSeries: JSONObject, investmentId: Long, accountId: Long): List<Database__PriceAsset> {
-        val dailyDataList = mutableListOf<Database__PriceAsset>()
-        for (date in timeSeries.keys()) {
-            val dailyDataObject = timeSeries.getJSONObject(date)
-            val dailyData = Database__PriceAsset(
-                investmentId = investmentId,
-                accountID = accountId,
-                dateOfPrice = date,
-                openPrice = dailyDataObject.getString("1. open"),
-                highPrice = dailyDataObject.getString("2. high"),
-                lowPrice = dailyDataObject.getString("3. low"),
-                closePrice = dailyDataObject.getString("4. close"),
-                volume = dailyDataObject.getString("5. volume")
-            )
-            dailyDataList.add(dailyData)
+        private fun errorCallback(investmentId: Long, accountId: Long) {
+            errorBuffer.add(Error(investmentId, accountId, "error handling API, Ticker not found"))
         }
-        return dailyDataList
-    }
 
+        private fun handleApiResponse(response: JSONObject, investmentId: Long, accountId: Long, callback: (List<Database__PriceAsset>) -> Unit) {
+            val rawTimeDataOfAsset = response.getJSONObject("Time Series (Daily)")
+            val assetTimeData = parseTimeData(rawTimeDataOfAsset, investmentId, accountId)
+            callback(assetTimeData)
+        }
+
+        private fun parseTimeData(timeSeries: JSONObject, investmentId: Long, accountId: Long): List<Database__PriceAsset> {
+            val dailyDataList = mutableListOf<Database__PriceAsset>()
+            for (date in timeSeries.keys()) {
+                val dailyDataObject = timeSeries.getJSONObject(date)
+                val dailyData = Database__PriceAsset(
+                    investmentId = investmentId,
+                    accountID = accountId,
+                    dateOfPrice = date,
+                    openPrice = dailyDataObject.getString("1. open"),
+                    highPrice = dailyDataObject.getString("2. high"),
+                    lowPrice = dailyDataObject.getString("3. low"),
+                    closePrice = dailyDataObject.getString("4. close"),
+                    volume = dailyDataObject.getString("5. volume")
+                )
+                dailyDataList.add(dailyData)
+            }
+            return dailyDataList
+        }
+    }
 }

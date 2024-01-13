@@ -43,8 +43,14 @@ interface Database__TaskDao {
 
     // *-----------  get data -----------------------------*
 
+    @Query("DELETE FROM investment_priceAsset_table WHERE investmentId = :investmentId")
+    suspend fun deleteOldEntryById(investmentId: Long)
+
     @Update
     suspend fun update(account: Database__Account)
+
+    @Update
+    suspend fun update(asset: Database__Asset)
 
     @Transaction
     @Query("SELECT * FROM account_table WHERE accountType = :accountType")
@@ -68,6 +74,8 @@ interface Database__TaskDao {
     @Query("SELECT * FROM investment_database_table WHERE investmentType = :typeInvestment")
     fun getAllAssetsAndTransactionsByType(typeInvestment: String): List<DatabaseAssetAndTransactions>
 
+    @Query("SELECT * FROM investment_database_table WHERE investmentId = :assetId")
+    fun getAssetById(assetId: Long): Database__Asset
 
     @Query("SELECT * FROM transaction_table WHERE accountID = :accountId")
     fun getTransactionsFromAccountById(accountId: Int): List<Database__Transaction>

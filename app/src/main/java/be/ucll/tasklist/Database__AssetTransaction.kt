@@ -15,6 +15,6 @@ data class Database__AssetTransaction(
     val investmentId: Long,
     val transactionDate: String,
     val transactionType: String,
-    val quantity: Int,
-    val value: Double?,
+    var quantity: Int,
+    var value: Double?,
 ): Parcelable

@@ -69,7 +69,8 @@ class Database__mockdataGenerator {
             accountName = "Degiro",
             accountNumber = "BE12345678",
             totalBalance = "100000.00",
-            accountType = "AssetAccount"
+            accountType = "AssetAccount",
+            assetCategoryValues = "[25000, 25000, 25000, 25000]"
         )
         accountsMockData.add(account1)
         return accountsMockData
@@ -104,7 +105,7 @@ class Database__mockdataGenerator {
     fun generateAssetMockDataAssetAccounts(): MutableList<Database__Asset> {
         val mockDataList = mutableListOf<Database__Asset>()
 
-        val stockTickers = listOf("AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "FB", "V", "NVDA", "PYPL", "NFLX")
+        val stockTickers = listOf("AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META", "V", "NVDA", "PYPL", "NFLX")
         val stockFullNames = listOf("Apple", "Google", "Microsoft", "Amazon", "Tesla", "Meta", "Visa", "NVIDIA", "PayPal", "Netflix")
         mockDataList.addAll(generateMockDataForType("Stocks", 9, stockTickers, stockFullNames))
 
@@ -138,7 +139,8 @@ class Database__mockdataGenerator {
                 ticker = tickers[i],
                 quantity = (random.nextDouble() * (10.0 - 1.0) + 1.0).toInt(),
                 lastValue = random.nextDouble() * (1000.0 - 1.0) + 1.0,
-                lastUpdated = dateFormat.parse("2/12/2023").toString(),
+                lastUpdated = "2024-01-13",
+                errorTickerNotFound = false
             )
             dataList.add(investment)
         }

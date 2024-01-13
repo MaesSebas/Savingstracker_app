@@ -1,36 +1,25 @@
 package be.ucll.tasklist
 
-import android.animation.ValueAnimator
 import android.app.DatePickerDialog
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
-import be.ucll.tasklist.databinding.OverallFragmentInsertTransactionBinding
-import com.patrykandpatrick.vico.core.extension.getFieldValue
-import com.sebastiaan.savingstrackerapp.Checkingsaccounts__CardViewModelFactory
-import com.sebastiaan.savingstrackerapp.Overall__InsertTransactionCardViewModelFactory
+import be.ucll.tasklist.databinding.InvestmentFragmentAssetTransactionBinding
+import com.sebastiaan.savingstrackerapp.Investment__InsertTransactionAssetModelFactory
 import java.util.Calendar
 
-class Overall__FragmentInsertTransaction : Fragment() {
-    private var _binding: OverallFragmentInsertTransactionBinding? = null
+class Investment__fragment_asset_transaction : Fragment() {
+    private var _binding: InvestmentFragmentAssetTransactionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Overall__FragmentInsertTransactionViewModel
-
-    //lateinit var dateEdt: EditText
+    private lateinit var viewModel: Investment__FragmentAssetTransactionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,28 +32,33 @@ class Overall__FragmentInsertTransaction : Fragment() {
         val dao = Database__TaskDatabase.getInstance(application).databaseTaskDao
 
         //Argmuments
-        val accountId = Overall__FragmentInsertTransactionArgs.fromBundle(requireArguments()).selectedData
+        val investmentId = Investment__fragment_asset_transactionArgs.fromBundle(requireArguments()).selectedData
 
         //ViewModel
-        val viewModelFactory = Overall__InsertTransactionCardViewModelFactory(dao)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(Overall__FragmentInsertTransactionViewModel::class.java)
+        val viewModelFactory = Investment__InsertTransactionAssetModelFactory(dao)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(Investment__FragmentAssetTransactionViewModel::class.java)
 
         viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
+                /*
                 val dataToPass = "stocks"
                 val action = Overall__FragmentInsertTransactionDirections
                     .actionOverallFragmentInsertTransactionToCards()
                 action.setSelectedData(dataToPass)
                 findNavController().navigate(action)
+                 */
+                val navController = findNavController()
+                navController.navigateUp()
                 viewModel.resetInsertionSuccess()
             }
         })
 
         //Binding
-        _binding = OverallFragmentInsertTransactionBinding.inflate(inflater, container, false)
+        _binding = InvestmentFragmentAssetTransactionBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.insertTransactionViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
 
         binding.transactiondate.setOnClickListener {
             val c = Calendar.getInstance()
@@ -90,14 +84,11 @@ class Overall__FragmentInsertTransaction : Fragment() {
 
         binding.btnAddTransaction.setOnClickListener {
             val expenseOrIncome = binding.spinnerTransactionType.selectedItem.toString()
-            val companyName = binding.companyName.text.toString().trim()
-            val description = binding.description.text.toString().trim()
-            val transactionDate = binding.transactiondate.text.trim()
-            val category = binding.category.text.toString().trim()
-            val amountText = binding.amount.text.toString().trim()
+            val quantity = binding.quantity.text.toString().trim()
+            val value = binding.value.text.toString().trim()
+            val transactionDate = binding.transactiondate.text.trim().toString()
 
-            if (companyName.isEmpty() || description.isEmpty() || transactionDate.isEmpty() ||
-                category.isEmpty() || amountText.isEmpty()
+            if (quantity.isEmpty() || quantity.isEmpty() || value.isEmpty() || transactionDate.isEmpty()
             ) {
                 Toast.makeText(context,
                     HtmlCompat.fromHtml("<font color='white'>Please fill in all the fields</font>", HtmlCompat.FROM_HTML_MODE_LEGACY),
@@ -105,17 +96,16 @@ class Overall__FragmentInsertTransaction : Fragment() {
                 return@setOnClickListener
             }
 
-            viewModel.insertCardTransaction(
-                accountId,
-                companyName,
-                description,
-                transactionDate.toString(),
-                category,
-                binding.amount.text.toString().toDoubleOrNull() ?: 0.0,
-                expenseOrIncome)
+            viewModel.insertAssetTransaction(
+                expenseOrIncome,
+                transactionDate,
+                investmentId.toLong(),
+                quantity.toInt(),
+                value.toDouble())
         }
 
-        //binding.spinnerTransactionType.selectedItem.toString())
+
+
         return view
     }
 }

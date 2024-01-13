@@ -15,7 +15,8 @@ data class Database__Asset(
     val investmentType: String,
     val name: String,
     val ticker: String,
-    val quantity: Int,
-    val lastValue: Double,
-    val lastUpdated: String
+    var quantity: Int,
+    var lastValue: Double,
+    var lastUpdated: String,
+    var errorTickerNotFound: Boolean
 ): Parcelable

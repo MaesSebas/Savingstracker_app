@@ -18,3 +18,5 @@ data class Database__AccountsAndTransactions(
     )
     var transactions: List<Database__Transaction>
 ): Parcelable, Serializable
+
+
