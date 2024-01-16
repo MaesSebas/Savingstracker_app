@@ -49,13 +49,25 @@ class Overall__FragmentInsertTransaction : Fragment() {
         val viewModelFactory = Overall__InsertTransactionCardViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Overall__FragmentInsertTransactionViewModel::class.java)
 
-        viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                val dataToPass = "stocks"
-                val action = Overall__FragmentInsertTransactionDirections
-                    .actionOverallFragmentInsertTransactionToCards()
-                action.setSelectedData(dataToPass)
-                findNavController().navigate(action)
+        viewModel.insertionSuccess.observe(viewLifecycleOwner, Observer { result  ->
+            if (result.success) {
+                if(result.typeToReturnTo == "CheckingsAccount") {
+                    val dataToPass = "stocks"
+                    val action = Overall__FragmentInsertTransactionDirections
+                        .actionOverallFragmentInsertTransactionToCards()
+                    action.setSelectedData(dataToPass)
+                    findNavController().navigate(action)
+                } else if(result.typeToReturnTo == "SavingsAccount") {
+                    val dataToPass = "stocks"
+                    val action = Overall__FragmentInsertTransactionDirections
+                        .actionOverallFragmentInsertTransactionToSavings()
+                    action.setSelectedData(dataToPass)
+                    findNavController().navigate(action)
+                } else if(result.typeToReturnTo == "ExtraLegalAccount") {
+                    val action = Overall__FragmentInsertTransactionDirections
+                        .actionOverallFragmentInsertTransactionToExtraLegal()
+                    findNavController().navigate(action)
+                }
                 viewModel.resetInsertionSuccess()
             }
         })

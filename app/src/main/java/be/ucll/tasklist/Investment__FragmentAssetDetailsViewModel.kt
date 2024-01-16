@@ -7,7 +7,6 @@ import java.time.LocalDate
 class Investment__FragmentAssetDetailsViewModel(var dao: Database__TaskDao) : ViewModel() {
     var transactionsLiveData: MutableLiveData<DatabaseAssetAndTransactions> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<Double>> = MutableLiveData()
-    var totalCardAmount: MutableLiveData<Double> = MutableLiveData(0.0)
 
     fun setTransactionsDataAndFungateAsInit(data: DatabaseAssetAndTransactions) {
         transactionsLiveData.value = data

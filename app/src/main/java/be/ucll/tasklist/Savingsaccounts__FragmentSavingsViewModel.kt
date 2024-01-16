@@ -37,6 +37,10 @@ class Savingsaccounts__FragmentSavingsViewModel(var dao: Database__TaskDao) : Vi
 
             for (i in transactions.indices) {
                 val currentTransaction = transactions[i]
+                if(currentTransaction.companyName == "Divider") {
+                    return data
+                }
+
                 val currentMonth = LocalDate.parse(currentTransaction.transactionDate, formatter).month.toString()
                 if (previousMonth != currentMonth) {
                     val newTransaction = Database__Transaction(

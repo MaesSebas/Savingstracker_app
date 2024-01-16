@@ -13,10 +13,12 @@ import java.util.Date
 import java.util.Locale
 import java.util.Random
 
+data class InsertionResult(val success: Boolean, val typeToReturnTo: String?)
 class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : ViewModel() {
-    private val _insertionSuccess = MutableLiveData<Boolean>()
-    val insertionSuccess: LiveData<Boolean>
+    private val _insertionSuccess = MutableLiveData<InsertionResult>()
+    val insertionSuccess: LiveData<InsertionResult>
         get() = _insertionSuccess
+
 
     fun insertCardTransaction(AccountId: Long, CompanyName: String, Description: String, TransactionDate: String, Category: String, Amount: Double, Type: String) {
 
@@ -54,7 +56,7 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
                     type = Type
                 )
                 dao.insert(transaction)
-                _insertionSuccess.postValue(true)
+                _insertionSuccess.postValue(InsertionResult(true, account.accountType))
             }
         }
     }
@@ -68,6 +70,6 @@ class Overall__FragmentInsertTransactionViewModel(var dao: Database__TaskDao) : 
     }
 
     fun resetInsertionSuccess() {
-        _insertionSuccess.value = false
+        _insertionSuccess.value = InsertionResult(false, "")
     }
 }

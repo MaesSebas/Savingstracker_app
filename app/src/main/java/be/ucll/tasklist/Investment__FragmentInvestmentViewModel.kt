@@ -258,7 +258,9 @@ class Investment__FragmentInvestmentViewModel(var dao: Database__TaskDao) : View
         override fun onPostExecute(result: JSONObject?) {
             if (result?.has("Error Message") == true) {
                 errorCallback(investmentId, accountId)
-            }else if (result != null) {
+            } else if (result?.has("Information") == true && result.getString("Information").contains("api rate limit", ignoreCase = true)) {
+                return
+            } else if (result != null) {
                 handleApiResponse(result, investmentId, accountId, callback)
             } else {
                 callback(emptyList())

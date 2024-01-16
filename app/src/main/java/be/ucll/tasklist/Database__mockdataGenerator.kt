@@ -68,9 +68,8 @@ class Database__mockdataGenerator {
             accountID = 7,
             accountName = "Degiro",
             accountNumber = "BE12345678",
-            totalBalance = "100000.00",
-            accountType = "AssetAccount",
-            assetCategoryValues = "[25000, 25000, 25000, 25000]"
+            totalBalance = "76398.00",
+            accountType = "AssetAccount"
         )
         accountsMockData.add(account1)
         return accountsMockData

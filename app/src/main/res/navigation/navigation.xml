@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_overall__FragmentInsertTransaction_to_cards"
             app:destination="@id/cards" />
+        <action
+            android:id="@+id/action_overall__FragmentInsertTransaction_to_extra_legal"
+            app:destination="@id/extra_legal" />
     </fragment>
     <fragment
         android:id="@+id/overall__FragmentAddNewCard"

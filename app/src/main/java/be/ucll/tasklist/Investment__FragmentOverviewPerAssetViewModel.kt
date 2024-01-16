@@ -9,42 +9,29 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import java.lang.Math.round
 import java.time.LocalDate
 
 class Investment__FragmentOverviewPerAssetViewModel(var dao: Database__TaskDao) : ViewModel() {
     var transactionsLiveData: MutableLiveData<List<DatabaseAssetAndTransactions>> = MutableLiveData()
     var graphLiveData: MutableLiveData<List<Double>> = MutableLiveData()
-    var totalCardAmount: MutableLiveData<Double> = MutableLiveData(0.0)
+    var totalCardAmount: MutableLiveData<Int> = MutableLiveData(0)
 
     // if we set arguments you need the data first before moving on (viewmodel first initiated so init function comes first here, and then arguments doesnt work) so this serves as init function
     fun setTransactionsDataAndFungateAsInit(data: List<DatabaseAssetAndTransactions>) {
         transactionsLiveData.value = data
         graphLiveData.value = generateGraphData(transactionsLiveData.value!!)
 
-        getTotalAccount(data[0].asset.investmentType)
+        totalCardAmount.value = getTotalAccount(data)
     }
 
-    fun getTotalAccount(type: String) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val account = withContext(Dispatchers.IO) {
-                dao.getAccountById(7)
-            }
-
-            val values = JSONArray(account.assetCategoryValues)
-
-            val totalAmount = when (type) {
-                "Etfs" -> values.getDouble(0)
-                "Cryptos" -> values.getDouble(1)
-                "Stocks" -> values.getDouble(2)
-                "Obligations" -> values.getDouble(3)
-                else -> 0.0
-            }
-
-            val mainScope = CoroutineScope(Dispatchers.Main)
-            mainScope.launch {
-                totalCardAmount.value = totalAmount
-            }
+    fun getTotalAccount(data: List<DatabaseAssetAndTransactions>): Int {
+        var totalAmount = 0.0
+        for(investment in data) {
+            var calculateValue = investment.asset.lastValue * investment.asset.quantity
+            totalAmount += calculateValue
         }
+        return totalAmount.toInt()
     }
 
     fun generateGraphData(data: List<DatabaseAssetAndTransactions>): List<Double> {
